@@ -1,6 +1,6 @@
 <script>
 	import utils from './common/utils.js'
-	import config from './config.js'
+	import config from "./env/config.js";
 	export default {
 		onLaunch: function(e) {
 			console.log('App Launch');

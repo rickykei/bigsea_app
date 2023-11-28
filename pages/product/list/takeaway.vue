@@ -8,7 +8,7 @@
 							<text class="fb">{{ supplier.name }}</text>
 							<view class="iconfont icon icon-jiantou"></view>
 						</view>
-						<view class="gray9 f22">距离：{{ supplier.distance }}</view>
+						<view class="gray9 f22">距離：{{ supplier.distance }}</view>
 					</view>
 					<view class="right">
 						<template v-for="(item, index) in delivery_set" :key="item">
@@ -73,15 +73,15 @@
 												</view>
 												<view class="price_and_action">
 													<view>
-														<text style="color: #FF5800;font-size: 22rpx;">￥</text>
+														<text style="color: #FF5800;font-size: 22rpx;">$</text>
 														<text class="price">{{ good.product_price }}</text>
 														<text class="linprice"
-															v-if="good.product_price * 1 != good.line_price * 1">￥{{ good.line_price * 1 }}</text>
+															v-if="good.product_price * 1 != good.line_price * 1">${{ good.line_price * 1 }}</text>
 													</view>
 													<view class="btn-group" v-if="good.spec_types == 20">
 														<button type="primary" class="btn property_btn"
 															hover-class="none" size="min"
-															@click.stop="gotoDetail(good)">选规格</button>
+															@click.stop="gotoDetail(good)">選規格</button>
 														<view class="dot" v-if="good.cart_num != 0">{{ good.cart_num }}
 														</view>
 													</view>
@@ -122,20 +122,20 @@
 				</view>
 				<view class="price">
 					<view>
-						<text class="f22">￥</text>
+						<text class="f22">$</text>
 						{{ total_price }}
-						<text class="gray9 f22 text-d-line fn ml10">￥{{ line_price }}</text>
+						<text class="gray9 f22 text-d-line fn ml10">${{ line_price }}</text>
 					</view>
 					<view class="gray9 f22 fn" v-if="total_bag_price != 0">
-						<text class="">包含包装费￥</text>
+						<text class="">包含包裝費$</text>
 						{{ total_bag_price }}
 					</view>
 				</view>
-				<button class="pay-btn" @tap="toPay" v-if="min_money_diff <= 0 || orderType != 'takeout'">去结算</button>
+				<button class="pay-btn" @tap="toPay" v-if="min_money_diff <= 0 || orderType != 'takeout'">去結算</button>
 				<button class="btn-gray mr10" disabled
-					v-if="min_money_diff > 0 && total_price == 0 && orderType == 'takeout'">{{ '￥' + min_money + '起送' }}</button>
+					v-if="min_money_diff > 0 && total_price == 0 && orderType == 'takeout'">{{ '$' + min_money + '起送' }}</button>
 				<button class="btn-gray mr10" disabled
-					v-if="min_money_diff > 0 && total_price != 0 && orderType == 'takeout'">{{ '还差￥' + min_money_diff + '起送' }}</button>
+					v-if="min_money_diff > 0 && total_price != 0 && orderType == 'takeout'">{{ '還差$' + min_money_diff + '起送' }}</button>
 			</view>
 			<!-- 购物车栏 end -->
 		</view>
@@ -152,15 +152,15 @@
 							</view>
 							<view v-if="reduce.next">
 								<text class="">{{ reduce.next.active_name }}</text>
-								还差
+								還差
 								<text class="">{{ reduce_diff_value }}</text>
 								{{ reduce.next.full_type == 1 ? '元' : '件' }}
 							</view>
 						</view>
 					</view>
 					<view class="top d-b-c">
-						<view>已选商品</view>
-						<view @tap="handleCartClear">清空购物车</view>
+						<view>已選商品</view>
+						<view @tap="handleCartClear">清空購物車</view>
 					</view>
 					<scroll-view class="cart-list" scroll-y>
 						<view class="wrapper">
@@ -176,9 +176,9 @@
 												<view class="gray9">{{ item.describe }}</view>
 											</view>
 											<view class="center">
-												<text class="fb">￥{{ item.price }}</text>
+												<text class="fb">${{ item.price }}</text>
 												<text class="f24 gray9"
-													v-if="bag_type != 1">(包装费：￥{{ item.bag_price }})</text>
+													v-if="bag_type != 1">(包裝費：${{ item.bag_price }})</text>
 											</view>
 										</view>
 									</view>
@@ -356,7 +356,7 @@
 					},
 					function(res) {
 						if (self.getUserId() && res.data.address_id == 0 && self.orderType == 'takeout') {
-							self.showError('未选择收货地址，请设置收货地址', function() {
+							self.showError('未選擇收貨地址，請設置收貨地址', function() {
 								self.gotoPage('/pages/user/address/storeaddress?shop_supplier_id=' + self
 									.shop_supplier_id);
 								return;
@@ -418,7 +418,7 @@
 					let sign = uni.getStorageSync('sign');
 					if (!sign) {
 						uni.showLoading({
-							title: '加载中'
+							title: '加載中'
 						});
 						self._post(
 							'index/index', {
@@ -471,7 +471,7 @@
 						self.longitude = 0;
 						self.latitude = 0;
 						uni.showToast({
-							title: '获取定位失败，请点击右下角按钮打开定位权限',
+							title: '獲取定位失敗，請點擊右下角按鈕打開定位權限',
 							duration: 2000,
 							icon: 'none'
 						});
@@ -521,14 +521,14 @@
 				if (goods.limit_num != 0 && goods.limit_num <= goods.cart_num) {
 					uni.showToast({
 						icon: 'none',
-						title: '超过限购数量'
+						title: '超過限購數量'
 					});
 					return;
 				}
 				if (goods.product_stock <= 0 || goods.product_stock <= goods.cart_num) {
 					uni.showToast({
 						icon: 'none',
-						title: '没有更多库存了'
+						title: '沒有更多庫存了'
 					});
 					return;
 				}
@@ -809,12 +809,12 @@
 				let self = this;
 				uni.showModal({
 					title: '提示',
-					content: '确定清空购物车么',
+					content: '確定清空購物車麽',
 					success(res) {
 						if (res.confirm) {
 							self.clearCart();
 						} else if (res.cancel) {
-							console.log('用户点击取消');
+							console.log('用戶點擊取消');
 						}
 					}
 				});
@@ -870,7 +870,7 @@
 				if (self.address_id == 0 && self.orderType == 'takeout') {
 					uni.showModal({
 						title: '提示',
-						content: '您还没选择收货地址,请先选择收货地址',
+						content: '您還沒選擇收貨地址,請先選擇收貨地址',
 						success() {
 							self.gotoPage('/pages/user/address/storeaddress?shop_supplier_id=' + self
 								.shop_supplier_id);
@@ -879,7 +879,7 @@
 					return;
 				}
 				uni.showLoading({
-					title: '加载中'
+					title: '加載中'
 				});
 				self._get(
 					'order.cart/lists', {
@@ -897,7 +897,7 @@
 						});
 						if (arrIds.length == 0) {
 							uni.showToast({
-								title: '请选择商品',
+								title: '請選擇商品',
 								icon: 'none'
 							});
 							return false;

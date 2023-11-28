@@ -138,8 +138,8 @@ var utils = {
 	},
 	// 判断是否为座机或者手机号
 	isTelAvailable(tel) {
-		var myreg = /^(([0\+]\d{2,3}-)?(0\d{2,3})-)(\d{7,8})(-(\d{3,}))?$/;
-		var myregs = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+		var myreg = /\d{8}$/;
+		var myregs = /\d{8}$/;
 		var flag = false;
 		if (myreg.test(tel)) {
 			flag = true;

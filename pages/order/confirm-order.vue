@@ -5,12 +5,12 @@
 				<template v-for="(item, index) in delivery_set" :key="index+'1'">
 					<view class="takeout" v-if="item == '10'" :class="tab_type == 0 ? 'active' : ''"
 						@click="tabFunc(0)">
-						<text>配送订单</text>
+						<text>配送訂單</text>
 					</view>
 				</template>
 				<template v-for="(item, index) in delivery_set" :key="index+'2'">
 					<view class="dinein" v-if="item == '20'" :class="tab_type == 1 ? 'active' : ''" @click="tabFunc(1)">
-						<text>店内订单</text>
+						<text>店內訂單</text>
 					</view>
 				</template>
 			</view>
@@ -18,12 +18,12 @@
 				<template v-for="(item, index) in store_set" :key="item">
 					<view class="takeout" v-if="item == '30'"
 						:class="tab_type == 3 ? 'active' : ''" @click="tabFunc(3)">
-						<text>打包订单</text>
+						<text>打包訂單</text>
 					</view>
 				</template>
 				<template v-for="(item, index) in store_set" :key="item">
 					<view class="dinein" v-if="item == '40'" :class="tab_type == 4 ? 'active' : ''" @click="tabFunc(4)">
-						<text>店内订单</text>
+						<text>店內訂單</text>
 					</view>
 				</template>
 			</view>
@@ -37,19 +37,19 @@
 									{{ Address.detail + Address.address + ' ' + Address.name + ' ' + Address.phone }}
 								</template>
 								<template v-else>
-									请选择配送地址
+									請選擇配送地址
 								</template>
 							</view>
 						</view>
 					</view>
 					<view class="header_bottom" v-if="tab_type == 1">
 						<view class="uni-list-cell-left f32 fb"><input type="number" v-model="phone"
-								placeholder="请输入联系电话" /></view>
+								placeholder="請輸入聯系電話" /></view>
 					</view>
 				</view>
 			</view>
 			<view class="d-b-c meal_item" @click="timepick()" v-if="tab_type == 0 && delivery != 10">
-				<view class="f28">取餐时间</view>
+				<view class="f28">取貨時間</view>
 				<view class="uni-list">
 					<view class="uni-list-cell">
 						<view class="uni-list-cell-left f28 ">
@@ -60,7 +60,7 @@
 				</view>
 			</view>
 			<view class="d-b-c meal_item" v-if="tab_type == 1 && delivery != 10">
-				<view class="f28">预计取餐时间</view>
+				<view class="f28">預計取貨時間</view>
 				<view class="uni-list">
 					<view class="uni-list-cell">
 						<view class="uni-list-cell-left f28 ">
@@ -70,7 +70,7 @@
 				</view>
 			</view>
 			<view class="d-b-c meal_item" @click="timepick()" v-if="tab_type == 0 && delivery == 10">
-				<view class="f28">预计送达时间：</view>
+				<view class="f28">預計送達時間：</view>
 				<view class="uni-list">
 					<view class="uni-list-cell">
 						<view class="uni-list-cell-left f28 ">
@@ -101,8 +101,8 @@
 							</view>
 						</view>
 						<view class="" style="height: 148rpx;text-align: right;">
-							<view class="f32 order_item mb16">¥{{ item.price }}</view>
-							<view class="f24 text-d-line gray9 mb16">¥{{ item.product_price }}</view>
+							<view class="f32 order_item mb16">${{ item.price }}</view>
+							<view class="f24 text-d-line gray9 mb16">${{ item.product_price }}</view>
 						</view>
 					</view>
 				</view>
@@ -110,44 +110,44 @@
 
 				<view class="other_box">
 					<view class="item">
-						<text class="key">商品小计：</text>
-						<text class="f32">￥{{ OrderData.order_total_price }}</text>
+						<text class="key">商品小計：</text>
+						<text class="f32">${{ OrderData.order_total_price }}</text>
 					</view>
 					<view class="item" v-if="tab_type != 1 && OrderData.express_price != 0">
-						<text class="key">配送费用：</text>
-						<text class="f32">￥{{ OrderData.express_price }}</text>
+						<text class="key">配送費用：</text>
+						<text class="f32">${{ OrderData.express_price }}</text>
 					</view>
 					<view class="item">
-						<text class="key">包装费用：</text>
-						<text class="f32">￥{{ OrderData.order_bag_price }}</text>
+						<text class="key">包裝費用：</text>
+						<text class="f32">${{ OrderData.order_bag_price }}</text>
 					</view>
 					<view class="item" v-if="OrderData.reduce">
-						<text class="key">满减({{ OrderData.reduce.active_name }})：</text>
-						<text class="f32">-￥{{ OrderData.reduce.reduced_price }}</text>
+						<text class="key">滿減({{ OrderData.reduce.active_name }})：</text>
+						<text class="f32">-${{ OrderData.reduce.reduced_price }}</text>
 					</view>
 					<view class="item" v-if="OrderData.table_no">
-						<text class="key">桌号：</text>
+						<text class="key">桌號：</text>
 						<text class="f32">{{ OrderData.table_no }}</text>
 					</view>
 				</view>
 				<view class="total-box">
-					共{{ OrderData.order_total_num }}件商品 小计
-					<text class="f32 fb ml15">￥{{ OrderData.order_pay_price }}</text>
+					共{{ OrderData.order_total_num }}件商品 小計
+					<text class="f32 fb ml15">${{ OrderData.order_pay_price }}</text>
 				</view>
 			</view>
 			<view class="meal_item">
 				<view class="d-b-c item">
-					<view class="mr20">备注:</view>
-					<input class="flex-1" type="text" v-model="remark" placeholder="请填写您的其他要求" />
+					<view class="mr20">備注:</view>
+					<input class="flex-1" type="text" v-model="remark" placeholder="請填寫您的其他要求" />
 				</view>
 			</view>
 			<!--底部支付-->
 			<view class="foot-pay-btns">
 				<view class="price" v-if="!OrderData.force_points">
-					¥
+					$
 					<text class="num">{{ OrderData.order_pay_price }}</text>
 				</view>
-				<button class="theme-bg" type="primary" @click="SubmitOrder">提交订单</button>
+				<button class="theme-bg" type="primary" @click="SubmitOrder">提交訂單</button>
 			</view>
 			<timepicker :isTimer="isTimer" @close="closetimer"></timepicker>
 		</view>
@@ -473,7 +473,8 @@
 						url,
 						params,
 						function(result) {
-							let pages = '/pages/order/cashier?order_type=10&order_id=' + result.data.order_id;
+							//let pages = '/pages/order/cashier?order_type=10&order_id=' + result.data.order_id;
+							let pages = '/pages/product/list/takeaway?orderType=takeout'
 							self.gotoPage(pages, 'reLaunch');
 						},
 						err => {

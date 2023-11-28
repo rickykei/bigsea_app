@@ -2,7 +2,7 @@
 	<view class="address-form"  :data-theme='theme()' :class="theme() || ''">
 		<view class="bg-white p-0-30 f30">
 			<view class="d-b-c border-b p-30-0 info-item avatar">
-				<text class="key-name">头像</text>
+				<text class="key-name">頭像</text>
 				<!-- #ifndef MP-WEIXIN -->
 				<view class="d-e-c" @click="changeAvatarUrl">
 					<view class="info-image"><image :src="userInfo.avatarUrl || '/static/default.png'" mode=""></image></view>
@@ -21,26 +21,26 @@
 				<!-- #endif -->
 			</view>
 			<view class="d-b-c p-30-0 border-b">
-				<text class="key-name">会员ID</text>
+				<text class="key-name">會員ID</text>
 				<view class="d-e-c">
 					<text class="mr20">{{ userInfo.user_id }}</text>
 				</view>
 			</view>
 			<view class="d-b-c p-30-0 border-b" @click="changeName('nickName')">
-				<text class="key-name">昵称</text>
+				<text class="key-name">名</text>
 				<view class="d-e-c">
 					<text class="mr20">{{ userInfo.nickName }}</text>
 					<text class="icon iconfont icon-jiantou"></text>
 				</view>
 			</view>
 			<view class="d-b-c p-30-0 border-b">
-				<text class="key-name">手机号码</text>
+				<text class="key-name">手提電話</text>
 				<view class="d-e-c" v-if="userInfo.mobile">
 					<text class="mr20">{{ userInfo.mobile }}</text>
 				</view>
 				<view class="d-e-c" v-if="!userInfo.mobile"><text class="mr20">未绑定</text></view>
 			</view>
-			<view class="setup-btn theme-btn" @tap="logout()">退出登录</view>
+			<view class="setup-btn theme-btn" @tap="logout()">退出登錄</view>
 		</view>
 		<!-- 修改资料 -->
 		<Popup :show="isPopup" type="bottom" :width="750" :padding="0" @hidePopup="hidePopupFunc">
@@ -50,17 +50,17 @@
 					<template v-if="type == 'mobile' || type == 'nickName' || type == 'user_name' || type == 'email' || type == 'idcard'">
 						<view class="pop-input d-b-c">
 							<!-- #ifdef MP-WEIXIN -->
-							<input name="newName" :type="type == 'nickName' ? 'nickname' : 'text'" class="flex-1" placeholder="请输入" :value="newName" @input="changeinput" />
+							<input name="newName" :type="type == 'nickName' ? 'nickname' : 'text'" class="flex-1" placeholder="請輸入" :value="newName" @input="changeinput" />
 							<!-- #endif -->
 							<!-- #ifndef MP-WEIXIN -->
-							<input type="text" name="newName" class="flex-1" placeholder="请输入" :value="newName" @input="changeinput" />
+							<input type="text" name="newName" class="flex-1" placeholder="請輸入" :value="newName" @input="changeinput" />
 							<!-- #endif -->
 							<view class="icon-guanbi icon iconfont" @click="clearName"></view>
 						</view>
 					</template>
 					<view class="d-a-c ww100">
 						<button class="theme-borderbtn" @click="hidePopupFunc">取消</button>
-						<button class="theme-btn" form-type="submit">确认</button>
+						<button class="theme-btn" form-type="submit">確認</button>
 					</view>
 				</view>
 			</form>

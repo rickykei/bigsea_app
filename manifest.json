@@ -1,7 +1,7 @@
 {
-    "name" : "三勾点单",
-    "appid" : "__UNI__792C7ED",
-    "description" : "",
+    "name" : "大海流動銷售系统",
+    "appid" : "__UNI__A1D71BB",
+    "description" : "大海流動銷售系统",
     "versionName" : "1.0.0",
     "versionCode" : 100,
     "transformPx" : false,
@@ -173,23 +173,21 @@
     "vueVersion" : "3",
     "h5" : {
         "router" : {
-            "mode" : "hash",
+            "mode" : "history",
             "base" : "/h5/"
         },
-        "title" : "三勾商城点餐系统",
+        "title" : "大海流動銷售系统",
         "devServer" : {
             "https" : false
         },
-        "template" : "三勾商城点餐系统",
+        "template" : "大海流動銷售系统",
         "sdkConfigs" : {
-            "maps" : {
-                "qqmap" : {
-                    "key" : "R37BZ-RWO3D-NER4T-PLYZD-W2I27-6IB32"
-                }
-            }
+            "maps" : {}
         }
     },
     "mp-alipay" : {
         "appid" : "2021003162684101"
-    }
+    },
+    "locale" : "zh-Hant",
+    "fallbackLocale" : "zh-Hant"
 }

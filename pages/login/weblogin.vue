@@ -1,70 +1,70 @@
 <template>
 	<view class="login-container" :style="'height: '+phoneHeight+'px;'">
-		<view class="skip" @click="gotoPage('/pages/index/index')">跳过→</view>
+		<view class="skip" @click="gotoPage('/pages/index/index')">Skip→</view>
 		<view class="p-30-75" v-if="is_login==2">
 			<view class="login_topbpx">
-				<view class="login_tit">注册</view>
-				<view class="login_top">已有账户，<text class="red" @click="is_login=1">立即登录</text></view>
+				<view class="login_tit">Register</view>
+				<view class="login_top">hv account，<text class="red" @click="is_login=1">Login now</text></view>
 			</view>
 			<view class="group-bd">
 				<view class="form-level d-s-c">
 
 					<view class="val flex-1 input_botom"><input type="text" v-model="register.mobile"
-							placeholder="请填写手机号" :disabled="is_send" /></view>
+							placeholder="Input Username" :disabled="is_send" /></view>
 				</view>
 				<view class="form-level d-s-c">
 					<view class="val flex-1 input_botom"><input type="text" password="true" v-model="register.password"
-							placeholder="请输入密码" /></view>
+							placeholder="Input password" /></view>
 				</view>
 				<view class="form-level d-s-c">
 					<view class="val flex-1 input_botom"><input type="text" password="true"
-							v-model="register.repassword" placeholder="请确认密码" /></view>
+							v-model="register.repassword" placeholder="Re Password" /></view>
 				</view>
 			</view>
 		</view>
 		<view class="p-30-75" v-if="is_login==1">
 			<view class="login_topbpx">
-				<view class="login_tit">登录</view>
-				<view class="login_top">还没有账号，<text class="red" @click="is_login=2">立即注册</text></view>
+				<view class="login_tit">Login</view>
+				 
 			</view>
 			<view class="group-bd">
 				<view class="form-level d-s-c">
 					<view class="val flex-1 input_botom"><input type="text" v-model="formData.mobile"
-							placeholder="请填写手机号" /></view>
+							placeholder="Username" /></view>
 				</view>
 				<view class="form-level d-s-c" >
 					<view class="val flex-1 input_botom"><input type="text" password="true" v-model="loging_password"
-							placeholder="请输入密码" /></view>
+							placeholder="Password" /></view>
 				</view>
-				<view class="gray9">账号:18888888888 密码:123456</view>
+				<view class="gray9">  </view>
 			</view>
 		</view>
 		<view class="p-30-75" v-if="is_login==0">
 			<view class="login_topbpx">
-				<view class="login_tit">重置密码</view>
-				<view class="login_top"><text class="red" @click="is_login=1">立即登录</text></view>
+				<view class="login_tit">Reset Password</view>
+				<view class="login_top"><text class="red" @click="is_login=1">Login Now</text></view>
 			</view>
 			<view class="group-bd">
 				<view class="form-level d-s-c">
 					<view class="val flex-1 input_botom"><input type="text" v-model="resetpassword.mobile"
-							placeholder="请填写手机号" :disabled="is_send" /></view>
+							placeholder="Input Username" :disabled="is_send" /></view>
 				</view>
 				<view class="form-level d-s-c">
 					<view class="val flex-1 input_botom"><input type="text" password="true"
-							v-model="resetpassword.password" placeholder="请输入密码" /></view>
+							v-model="resetpassword.password" placeholder="Input Password" /></view>
 				</view>
 				<view class="form-level d-s-c">
 					<view class="val flex-1 input_botom"><input type="text" password="true"
-							v-model="resetpassword.repassword" placeholder="请确认密码" /></view>
+							v-model="resetpassword.repassword" placeholder="ReInput Password" /></view>
 				</view>
 			</view>
 		</view>
 		<view style="padding-top: 80rpx;" class="btns p-30-75" v-if="is_login==2"><button type="default"
-				@click="registerSub">注册</button></view>
+				@click="registerSub">Register</button></view>
 		<view style="padding-top: 80rpx;" class="btns p-30-75" v-if="is_login==1"><button type="default"
-				@click="formSubmit">登录</button></view>
+				@click="formSubmit">Login</button></view>
 		<view style="padding-top: 80rpx;" class="btns p-30-75" v-if="is_login==0"><button type="default"
-				@click="resetpasswordSub">重置密码</button></view>
+				@click="resetpasswordSub">Reset Password</button></view>
 
 	</view>
 </template>
@@ -79,9 +79,9 @@
 				/*表单数据对象*/
 				formData: {
 					/*手机号*/
-					mobile: '',
+					mobile: '88888888',
 				},
-				loging_password: '',
+				loging_password: 'abcd1234',
 				register: {
 					mobile: '',
 					password: '',
@@ -95,7 +95,7 @@
 				/*是否已发验证码*/
 				is_send: false,
 				/*发送按钮文本*/
-				send_btn_txt: '获取验证码',
+				send_btn_txt: '驗證碼',
 				/*当前秒数*/
 				second: 60,
 				ip: '',
@@ -128,9 +128,9 @@
 					mobile: self.formData.mobile,
 				}
 				let url = ''
-				if (!/^1(3|4|5|6|7|8|9)\d{9}$/.test(self.formData.mobile)) {
+				if (!/\d{8}$/.test(self.formData.mobile)) {
 					uni.showToast({
-						title: '手机有误,请重填！',
+						title: '登入有錯！',
 						duration: 2000,
 						icon: 'none'
 					});
@@ -138,7 +138,7 @@
 				}
 				if (self.loging_password == '') {
 					uni.showToast({
-						title: '密码不能为空！',
+						title: '密碼不能為空！',
 						duration: 2000,
 						icon: 'none'
 					});
@@ -173,7 +173,7 @@
 				let self = this;
 				if (!/^1(3|4|5|6|7|8|9)\d{9}$/.test(self.register.mobile)) {
 					uni.showToast({
-						title: '手机有误,请重填！',
+						title: 'Username Wrong,please refill！',
 						duration: 2000,
 						icon: 'none'
 					});
@@ -181,7 +181,7 @@
 				}
 				if (self.register.password.length < 6) {
 					uni.showToast({
-						title: '密码至少6位数！',
+						title: 'password at least six characters！',
 						duration: 2000,
 						icon: 'none'
 					});
@@ -189,7 +189,7 @@
 				}
 				if (self.register.password !== self.register.repassword) {
 					uni.showToast({
-						title: '两次密码输入不一致！',
+						title: 'password not same！',
 						duration: 2000,
 						icon: 'none'
 					});
@@ -228,7 +228,7 @@
 				let self = this;
 				if (!/^1(3|4|5|6|7|8|9)\d{9}$/.test(self.resetpassword.mobile)) {
 					uni.showToast({
-						title: '手机有误,请重填！',
+						title: 'Wrong username format！',
 						duration: 2000,
 						icon: 'none'
 					});
@@ -236,7 +236,7 @@
 				}
 				if (self.resetpassword.password.length < 6) {
 					uni.showToast({
-						title: '密码至少6位数！',
+						title: 'password at least six characters！',
 						duration: 2000,
 						icon: 'none'
 					});
@@ -244,7 +244,7 @@
 				}
 				if (self.resetpassword.password !== self.resetpassword.repassword) {
 					uni.showToast({
-						title: '两次密码输入不一致！',
+						title: 'not same password！',
 						duration: 2000,
 						icon: 'none'
 					});

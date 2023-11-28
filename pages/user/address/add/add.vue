@@ -3,26 +3,40 @@
 		<form @submit="formSubmit" @reset="formReset">
 			<view class="bg-white p-0-30 f30">
 				<view class="d-s-c border-b-d9">
-					<text class="key-name">收货人</text>
+					<text class="key-name">收貨人</text>
 					<input class="ml20 flex-1 f32 p-30-0" name="name" type="text" placeholder-class="grary9"
-						v-model="address.name" placeholder="请输入收货人姓名" />
+						v-model="address.name" placeholder="請輸入收货人姓名" />
 				</view>
 				<view class="d-s-c border-b-d9">
-					<text class="key-name">联系方式</text>
+					<text class="key-name">聯絡方式</text>
 					<input class="ml20 flex-1 f32 p-30-0" name="phone" type="text" placeholder-class="grary9"
-						v-model="address.phone" placeholder="请输入收货人手机号" />
+						v-model="address.phone" placeholder="請輸入收货人手提" />
+				</view>
+				<view class="d-s-c border-b-d9" @click="chooseRegion">
+					<text class="key-name">地域</text>
+					<view class="input-box flex-1">
+						<input class="ml20 f32 flex-1 p-30-0" name="region" type="text" placeholder-class="grary9"
+							placeholder="地域" v-model="address.region" disabled  />
+					</view>
+				</view>
+				<view class="d-s-c border-b-d9" @click="chooseDistrict">
+					<text class="key-name">地區</text>
+					<view class="input-box flex-1">
+						<input class="ml20 f32 flex-1 p-30-0" name="district" type="text" placeholder-class="grary9"
+							placeholder="地區" v-model="address.district" disabled  />
+					</view>
 				</view>
 				<view class="d-s-c border-b-d9" @click="chooseLocation">
-					<text class="key-name">详细地址</text>
+					<text class="key-name">詳細地址</text>
 					<view class="input-box flex-1">
 						<input class="ml20 f32 flex-1 p-30-0" name="detail" type="text" placeholder-class="grary9"
-							placeholder="请选择地址" v-model="address.detail" disabled  />
+							placeholder="詳細地址" v-model="address.detail" disabled  />
 					</view>
 				</view>
 				<view class="d-s-c border-b-d9">
-					<text class="key-name">门牌号</text>
+					<text class="key-name">門牌</text>
 					<textarea class="ml20 flex-1 p-30-0 lh150" name="address" :auto-height="true"
-						v-model="address.address" placeholder-class="grary9" placeholder="请输入街道小区楼牌号等"></textarea>
+						v-model="address.address" placeholder-class="grary9" placeholder="門牌"></textarea>
 				</view>
 			</view>
 			<view class="p30"><button type="primary" form-type="submit" class="theme-btn f32 mt60 addBtn">保存</button>
@@ -138,7 +152,7 @@
 				// utils.isTelAvailable(formdata.phone)
 				if (!utils.isTelAvailable(formdata.phone)) {
 					uni.showToast({
-						title:'请输入正确的联系方式',
+						title:'請输入正確的電話',
 						duration: 2000,
 						icon: 'none'
 					});

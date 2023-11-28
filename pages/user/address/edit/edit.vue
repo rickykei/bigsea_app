@@ -155,7 +155,7 @@
 
 				if (!utils.isTelAvailable(formdata.phone)) {
 					uni.showToast({
-						title:'请输入正确的联系方式',
+						title:'請输入正確的電話',
 						duration: 2000,
 						icon: 'none'
 					});
