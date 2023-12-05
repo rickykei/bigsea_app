@@ -1,4 +1,4 @@
-let url = 'http://192.168.31.226:8890';
+let url = 'https://bigsea.rickykei.com';
 if(process.env.NODE_ENV != 'development'){
 	url = '/api';
 }

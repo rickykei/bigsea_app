@@ -27,6 +27,36 @@
 					</view>
 				</template>
 			</view>
+			<view class="meal_item">
+			</view>
+			<view class="meal_item">
+				<view class="d-b-c item">
+					  <view class="mr20">會員編號：</view>
+						<input class="flex-1" type="text" v-model="userid" placeholder="請輸入會員編號" />  
+				</view> 
+			</view>
+			<view class="d-b-c meal_item" @click="districtpick()" v-if="tab_type == 0 && delivery == 10">
+				<view class="f28">港九：</view>
+				<view class="uni-list">
+					<view class="uni-list-cell">
+						<view class="uni-list-cell-left f28 fb">
+							<text class="blue">{{ mydistrict.label }}</text>
+							<text class="icon iconfont icon-jiantou"></text>
+						</view>
+					</view>
+				</view>
+			</view>
+			<view class="d-b-c meal_item" @click="regionpick()" v-if="tab_type == 0 && delivery == 10">
+				<view class="f28">區：</view>
+				<view class="uni-list">
+					<view class="uni-list-cell">
+						<view class="uni-list-cell-left f28 fb">
+							<text class="blue">{{ myregion.shortname }}</text>
+							<text class="icon iconfont icon-jiantou"></text>
+						</view>
+					</view>
+				</view>
+			</view>
 			<view class="header" v-if="cart_type == 0">
 				<view class="headr_top">
 					<view class="flex-1" style="width: 100%;" v-if="tab_type != 1">
@@ -47,7 +77,7 @@
 								placeholder="請輸入聯系電話" /></view>
 					</view>
 				</view>
-			</view>
+			</view> 
 			<view class="d-b-c meal_item" @click="timepick()" v-if="tab_type == 0 && delivery != 10">
 				<view class="f28">取貨時間</view>
 				<view class="uni-list">
@@ -150,18 +180,25 @@
 				<button class="theme-bg" type="primary" @click="SubmitOrder">提交訂單</button>
 			</view>
 			<timepicker :isTimer="isTimer" @close="closetimer"></timepicker>
+			<regionpicker :isRegion="isRegion" :selectedDistrict="selectedDistrict" :selectedShopSupplierId="selectedShopSupplierId" @close="closeregion"></regionpicker>
+			<districtpicker :isDistrict="isDistrict" @close="closedistrict"></districtpicker>
 		</view>
 	</view>
 </template>
 
 <script>
 	import timepicker from '@/components/timepicker/timepicker';
+	import regionpicker from '@/components/regionpicker/regionpicker';
+	import districtpicker from '@/components/districtpicker/districtpicker';
+	 
 	import {
 		pay
 	} from '@/common/pay.js';
 	export default {
 		components: {
-			timepicker
+			timepicker,
+			districtpicker,
+			regionpicker,
 		},
 		data() {
 			return {
@@ -205,7 +242,14 @@
 				showAlipay: false,
 				takeout_address: {},
 				isTimer: false,
+				isRegion:false,
+				isDistrict:false,
+				selectedDistrict: 0,
+				selectedShopSupplierId: 0,
 				mealtime: '',
+				myregion: [],
+				mydistrict: [],
+				userid:'',
 				wmtime: '',
 				estitime: '',
 				is_pack: 1,
@@ -225,7 +269,7 @@
 			self.table_id = options.table_id || 0;
 			self.dinner_type = options.dinner_type;
 			self.delivery = options.delivery;
-			// this.getData();
+			//this.getData();
 		},
 		onShow() {
 			this.$fire.on('takeout', function(e) {
@@ -323,7 +367,7 @@
 							}
 						}
 					}
-
+				 
 					self.wmtime = self.getTime('wm');
 					self.mealtime = self.getTime('my');
 					self.estitime = self.getTime('wm');
@@ -336,6 +380,8 @@
 					delivery: self.delivery || 0,
 					store_id: 1,
 					mealtime: '',
+					mydistrict: '',
+					myregion: '',
 					pay_source: self.getPlatform()
 				};
 				if(self.table_id){
@@ -431,6 +477,8 @@
 					phone: self.phone,
 					remark: self.remark,
 					mealtime: self.mealtime,
+					mydistrict: self.mydistrict,
+					myregion: self.myregion,
 					shop_supplier_id: self.options.shop_supplier_id,
 					pay_source: self.getPlatform()
 				};
@@ -488,12 +536,34 @@
 			timepick() {
 				this.isTimer = true;
 			},
+			regionpick() {
+				this.isRegion = true;
+				this.selectedDistrict=this.mydistrict.value;
+				this.selectedShopSupplierId=this.options.shop_supplier_id;
+			},
+			districtpick() {
+				this.isDistrict = true; 
+			},
 			closetimer(e) {
 				if (e != '') {
 					this.wmtime = e;
 					this.mealtime = e;
 				}
 				this.isTimer = false;
+			},
+			closedistrict(e) {
+				if (e != '') {
+					this.mydistrict = e;
+					 
+				}
+				this.isDistrict = false;
+			},
+			closeregion(e) {
+				if (e != '') {
+					this.myregion = e;
+					 
+				}
+				this.isRegion = false;
 			},
 			packTypeFunc(n) {
 				this.is_pack = n;

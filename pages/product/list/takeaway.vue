@@ -442,7 +442,7 @@
 				self.getLocation();
 				// #endif
 			},
-			/*授权启用定位权限*/
+			/*授权启用定位权限
 			onAuthorize() {
 				let self = this;
 				uni.openSetting({
@@ -456,11 +456,11 @@
 						}
 					}
 				});
-			},
+			},*/
 			/*获取用户坐标*/
 			getLocation(callback) {
 				let self = this;
-				uni.getLocation({
+				/*uni.getLocation({
 					type: 'wgs84',
 					success(res) {
 						self.longitude = res.longitude;
@@ -477,7 +477,10 @@
 						});
 						self.getCategory();
 					}
-				});
+				});*/
+				self.longitude = 22.322334;
+				self.latitude = 114.169579;
+				self.getCategory();
 			},
 			/* 公众号获取坐标 */
 			getWxLocation(signPackage, callback) {
