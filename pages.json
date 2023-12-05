@@ -260,7 +260,7 @@
 		}, {
 			"path": "pages/user/address/storeaddress",
 			"style": {
-				"navigationBarTitleText": "选择地址",
+				"navigationBarTitleText": "選擇地址",
 				"enablePullDownRefresh": false,
 				"app-plus": {
 					//#ifdef H5
@@ -269,7 +269,19 @@
 				}
 			}
 
-		}, {
+		},  {
+			"path": "pages/user/address/selectaddress",
+			"style": {
+				"navigationBarTitleText": "選擇地址",
+				"enablePullDownRefresh": false,
+				"app-plus": {
+					//#ifdef H5
+					"titleNView": false
+					//#endif
+				}
+			}
+
+		},{
 			"path": "pages/product/list/store",
 			"style": {
 				"navigationBarTitleText": "堂食点餐",

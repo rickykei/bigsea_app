@@ -29,24 +29,23 @@
 				height: 600,
 				/*数据对象*/
 				dataModel: {},
-				regions: [], 
-				myregion: []   
+				regions: [{shortname: '-----', value: 0}], 
+				myregion: {}   
 			 
 			}
 		},
-		props: ['isRegion','selectedDistrict','selectedShopSupplierId'],
-		 
-		onShow( ) {
-		
-		},
+		props: {isRegion:Boolean,selectedDistrict:Number }, 
 		watch: {
-			
-			'selectedDistrict': function(n, o) {
-				console.log("regionpicker.selectedDistrict"+n);
-				
+			'isRegion': function(n, o) { 
+				if (n != o) {
+					//this.getData();
+					this.getData();
+				}
+			},
+			'selectedDistrict': function(n, o) { 
 				//if old value same as new value , no need to call api get data
 				if (n != o) {
-					this.getData(n);
+					this.getData();
 					//call api to get districts json; 
 				}
 			} 
@@ -54,15 +53,14 @@
 		},
 		methods: {
 			/*获取数据*/
-			getData(n) {
+			getData() {
 				let self = this; 
 				let dataType = self.dataType;
 				self._get('region.region/list', {
-					pid: n
+					pid: this.selectedDistrict
 				}, function(res) {
-					self.listData = res.data.list;
+					//self.listData = res.data.list;
 					self.regions = res.data.list;
-					self.name = res.data.default_id + '';
 					self.loadding = false;
 					uni.hideLoading();
 				});

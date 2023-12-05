@@ -32,7 +32,7 @@
 			<view class="meal_item">
 				<view class="d-b-c item">
 					  <view class="mr20">會員編號：</view>
-						<input class="flex-1" type="text" v-model="userid" placeholder="請輸入會員編號" />  
+						<input class="flex-1" type="text" v-model="cust_id" placeholder="請輸入會員編號" />  
 				</view> 
 			</view>
 			<view class="d-b-c meal_item" @click="districtpick()" v-if="tab_type == 0 && delivery == 10">
@@ -62,7 +62,7 @@
 					<view class="flex-1" style="width: 100%;" v-if="tab_type != 1">
 						<view class="left overflow-hidden">
 							<view class="overflow-hidden f28 fb w-b-a" style="width: 600rpx;"
-								@click="gotoPage('/pages/user/address/storeaddress?shop_supplier_id=' + options.shop_supplier_id)">
+								@click="gotoPage('/pages/user/address/selectaddress?shop_supplier_id=' + options.shop_supplier_id+'&myregion='+this.myregion.id+'&cust_id='+this.cust_id)">
 								<template v-if="Address != null">
 									{{ Address.detail + Address.address + ' ' + Address.name + ' ' + Address.phone }}
 								</template>
@@ -180,7 +180,7 @@
 				<button class="theme-bg" type="primary" @click="SubmitOrder">提交訂單</button>
 			</view>
 			<timepicker :isTimer="isTimer" @close="closetimer"></timepicker>
-			<regionpicker :isRegion="isRegion" :selectedDistrict="selectedDistrict" :selectedShopSupplierId="selectedShopSupplierId" @close="closeregion"></regionpicker>
+			<regionpicker :isRegion="isRegion" :selectedDistrict="selectedDistrict"  @close="closeregion"></regionpicker>
 			<districtpicker :isDistrict="isDistrict" @close="closedistrict"></districtpicker>
 		</view>
 	</view>
@@ -247,9 +247,9 @@
 				selectedDistrict: 0,
 				selectedShopSupplierId: 0,
 				mealtime: '',
-				myregion: [],
-				mydistrict: [],
-				userid:'',
+				myregion: {label:'',id:0},
+				mydistrict: {label:'',id:0},
+				cust_id:'',
 				wmtime: '',
 				estitime: '',
 				is_pack: 1,
@@ -538,8 +538,8 @@
 			},
 			regionpick() {
 				this.isRegion = true;
-				this.selectedDistrict=this.mydistrict.value;
-				this.selectedShopSupplierId=this.options.shop_supplier_id;
+				this.selectedDistrict=this.mydistrict.id;
+				 
 			},
 			districtpick() {
 				this.isDistrict = true; 

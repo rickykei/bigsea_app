@@ -30,7 +30,7 @@
 				/*数据对象*/
 				dataModel: {},
 				districts: [
-					{label:"香港",value:2},{label: "九龍",value:3}, {label:"新界",value:4},
+					{label:"香港",id:2},{label: "九龍",id:3}, {label:"新界",id:4},
 				], 
 				mydistrict: []
 			}
