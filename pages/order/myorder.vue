@@ -8,21 +8,21 @@
 			<view class="tc  head_top" :style="topBarHeight() == 0 ? '' : 'height:' + topBarHeight() + 'px;'">
 				<view class="d-c-c bg-white">
 					<view class="left" :class="order_type == 0 ? 'tab-item-top active' : 'tab-item-top'"
-						@click="ordertypeFunc(0)">配送订单</view>
+						@click="ordertypeFunc(0)">配送訂單</view>
 					<view class="right" :class="order_type == 1 ? 'tab-item-top active' : 'tab-item-top'"
-						@click="ordertypeFunc(1)">店内订单</view>
+						@click="ordertypeFunc(1)">店內訂單</view>
 				</view>
 			</view>
 			<view class="d-a-c ww100 mt24" v-if="order_type == 0">
-				<view :class="delivery_type == 10 ? 'tab-item active' : 'tab-item'" @click="orderStateFunc(10)">外送订单
+				<view :class="delivery_type == 10 ? 'tab-item active' : 'tab-item'" @click="orderStateFunc(10)">外送訂單
 				</view>
-				<view :class="delivery_type == 20 ? 'tab-item active' : 'tab-item'" @click="orderStateFunc(20)">自提订单
+				<view :class="delivery_type == 20 ? 'tab-item active' : 'tab-item'" @click="orderStateFunc(20)">自提訂單
 				</view>
 			</view>
 			<view class="d-a-c ww100 mt24" v-if="order_type == 1">
-				<view :class="delivery_type == 40 ? 'tab-item active' : 'tab-item'" @click="orderStateFunc(40)">堂食订单
+				<view :class="delivery_type == 40 ? 'tab-item active' : 'tab-item'" @click="orderStateFunc(40)">堂食訂單
 				</view>
-				<view :class="delivery_type == 30 ? 'tab-item active' : 'tab-item'" @click="orderStateFunc(30)">打包订单
+				<view :class="delivery_type == 30 ? 'tab-item active' : 'tab-item'" @click="orderStateFunc(30)">打包訂單
 				</view>
 			</view>
 		</view>
@@ -53,7 +53,7 @@
 						</view>
 						<view class="order-head d-b-c">
 							<view>
-								<text class="shop-name flex-1">下单时间：{{ item.create_time }}</text>
+								<text class="shop-name flex-1">下單時間：{{ item.create_time }}</text>
 							</view>
 						</view>
 						<!--多个商品显示-->
@@ -71,7 +71,7 @@
 							<block v-if="item.order_status.value == 10">
 								<!-- 未支付取消订单 -->
 								<button class="default" @click.stop="cancelOrder(item.order_id)" type="default"
-									v-if="item.pay_status.value == 10&&item.order_source != 30">取消订单</button>
+									v-if="item.pay_status.value == 10&&item.order_source != 30">取消訂單</button>
 								<!-- 订单付款 -->
 								<block v-if="item.pay_status.value == 10"><button class="theme-borderbtn fb"
 										@click.stop="onPayOrder(item.order_id)">立即支付</button></block>
@@ -87,8 +87,8 @@
 				<view class="d-c-c d-c p30" v-if="listData.length == 0 && !loading">
 					<image style="width: 268rpx;height: 263rpx;margin-top: 123rpx;" src="/static/no-order.png"
 						mode="aspectFill"></image>
-					<view class="f26 gray9">暂无记录</view>
-					<view><button class="btn-normal" @click="gotoPage('/pages/index/index')">立即点单</button></view>
+					<view class="f26 gray9">暫無記錄</view>
+					<view><button class="btn-normal" @click="gotoPage('/pages/index/index')">立即點單</button></view>
 				</view>
 				<uni-load-more v-else :loadingType="loadingType"></uni-load-more>
 			</view>

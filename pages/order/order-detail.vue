@@ -4,17 +4,15 @@
 			<view class="f40 fb mb40">
 				{{detail.state_text}}
 			</view>
-			<view class="d-s-c mt20 mb40" v-if="detail.pay_status.value == 10 && detail.order_status.value != 20">
-				<view class="f26">交易将在：<text class="orange">{{detail.pay_end_time}}</text>后关闭，请及时付款</view>
-			</view>
+			 
 			<view class="top-state"
 				v-if="detail.order_type!=1 && detail.delivery_type.value==10 && detail.order_status.value == 10">
 				<view class="d-b-c state-height border-b">
-					<view class="">配送员正在为你配送中</view>
+					<view class="">配送中</view>
 					<!-- <view>联系配送员</view> -->
 				</view>
 				<view class="d-b-c state-height">
-					<view>预计取餐时间</view>
+					<view>預計送貨时間</view>
 					<view class="blue">{{detail.mealtime}}</view>
 				</view>
 			</view>
@@ -44,7 +42,7 @@
 				</view>
 				<view>
 					<view class="pro-cont-item">
-						<view>商品小计</view>
+						<view>商品小計</view>
 						<view>￥{{detail.total_price}}</view>
 					</view>
 					<view class="pro-cont-item" v-if="detail.bag_price!=0">
@@ -56,7 +54,7 @@
 						<view>￥{{detail.express_price}}</view>
 					</view>
 					<view class="pro-cont-item pro-cont-total">
-						共{{detail.product.length}}件商品  小计
+						共{{detail.product.length}}件商品  小計
 						<text>￥{{detail.pay_price}}</text>
 					</view>
 				</view>
@@ -64,11 +62,11 @@
 			<view class="other_box">
 				<view class="meal_item-title">配送信息</view>
 				<view class="meal_item">
-					<view>配送服务</view>
+					<view>配送服務</view>
 					<view class="right">{{detail.order_type_text}}</view>
 				</view>
 				<view class="meal_item" v-if="detail.mealtime">
-					<view>期望时间</view>
+					<view>期望時間</view>
 					<view class="right">{{detail.mealtime}}</view>
 				</view>
 				<view class="meal_item" v-if="detail.order_type!=1&&detail.address!=null">
@@ -80,9 +78,9 @@
 				</view>
 			</view>
 			<view class="other_box">
-				<view class="meal_item-title">订单信息</view>
+				<view class="meal_item-title">訂單信息</view>
 				<view class="meal_item">
-					<view>订单号码</view>
+					<view>訂單號碼</view>
 					<view class="right">{{detail.order_no}}</view>
 				</view>
 				<view class="meal_item" v-if="detail.table_no">
@@ -90,25 +88,23 @@
 					<view class="right">{{detail.table_no}}</view>
 				</view>
 				<view class="meal_item">
-					<view>下单时间</view>
+					<view>下单時間</view>
 					<view class="right">{{detail.create_time}}</view>
 				</view>
 				<view class="meal_item">
 					<view>支付金额</view>
 					<view class="right">{{detail.pay_price}}</view>
 				</view>
+			 
 				<view class="meal_item">
-					<view>支付方式</view>
-					<view class="right">{{detail.pay_type.text}}</view>
-				</view>
-				<view class="meal_item">
-					<view>备注</view>
+					<view>備注</view>
 					<view class="right">
 						<view>{{detail.buyer_remark}}</view>
 					</view>
 				</view>
 			</view>
-			<view class="d-c-c" v-if="detail.pay_status.value == 10 && detail.order_status == 10">
+				 
+			<view class="d-c-c" v-if="detail.pay_status.value == 10 && detail.order_status.value == 10">
 				<view class="f26 theme-btn pay_btn" @click="onPayOrder(detail.order_id)">立即支付</view>
 			</view>
 			<!--支付选择-->
@@ -198,11 +194,11 @@
 				let order_id = e;
 				uni.showModal({
 					title: '提示',
-					content: '您确定要取消当前订单吗?',
+					content: '您確定要取消當前訂單嗎?',
 					success: function(o) {
 						if (o.confirm) {
 							uni.showLoading({
-								title: '正在处理'
+								title: '正在處理'
 							});
 							self._get(
 								'user.order/cancel', {
@@ -228,11 +224,11 @@
 				let self = this;
 				uni.showModal({
 					title: '提示',
-					content: '您确定要收货吗?',
+					content: '您確定要收貨嗎?',
 					success: function(o) {
 						if (o.confirm) {
 							uni.showLoading({
-								title: '正在处理'
+								title: '正在處理'
 							});
 							self._post(
 								'user.order/receipt', {

@@ -27,8 +27,7 @@
 					</view>
 				</template>
 			</view>
-			<view class="meal_item">
-			</view>
+			<br>
 			<view class="meal_item">
 				<view class="d-b-c item">
 					  <view class="mr20">會員編號：</view>
@@ -64,7 +63,7 @@
 							<view class="overflow-hidden f28 fb w-b-a" style="width: 600rpx;"
 								@click="gotoPage('/pages/user/address/selectaddress?shop_supplier_id=' + options.shop_supplier_id+'&myregion='+this.myregion.id+'&cust_id='+this.cust_id)">
 								<template v-if="Address != null">
-									{{ Address.detail + Address.address + ' ' + Address.name + ' ' + Address.phone }}
+									{{  Address.address  }}
 								</template>
 								<template v-else>
 									請選擇配送地址
@@ -78,8 +77,26 @@
 					</view>
 				</view>
 			</view> 
+			<view class="meal_item">
+				<view class="d-b-c item">
+					<view class="mr20">公司名:</view>
+					<input class="flex-2" type="text" v-model="name" placeholder="" /> 
+				</view>
+			</view>
+			<view class="meal_item">
+				<view class="d-b-c item">
+					<view class="mr20">收貨人/聯絡人:</view>
+				<input class="flex-2" type="text" v-model="name" placeholder="" /> 
+				</view>
+			</view>
+			<view class="meal_item">
+				<view class="d-b-c item">
+					<view class="mr20">收貨電話:</view>
+						<input class="flex-2" type="text" v-model="phone" placeholder="請輸入會員編號" /> 
+				</view>
+			</view>
 			<view class="d-b-c meal_item" @click="timepick()" v-if="tab_type == 0 && delivery != 10">
-				<view class="f28">取貨時間</view>
+				<view class="f28">送貨時間</view>
 				<view class="uni-list">
 					<view class="uni-list-cell">
 						<view class="uni-list-cell-left f28 ">
@@ -224,6 +241,7 @@
 				Address: {
 					region: []
 				},
+				
 				extract_store: {},
 				last_extract: {},
 				product_sku_id: 0,
@@ -234,6 +252,7 @@
 				store_id: 1,
 				linkman: '',
 				phone: '',
+				 
 				remark: '',
 				deliverySetting: [],
 				/*消息模板*/
@@ -250,6 +269,7 @@
 				myregion: {label:'',id:0},
 				mydistrict: {label:'',id:0},
 				cust_id:'',
+				cust_name: '',
 				wmtime: '',
 				estitime: '',
 				is_pack: 1,
@@ -269,7 +289,7 @@
 			self.table_id = options.table_id || 0;
 			self.dinner_type = options.dinner_type;
 			self.delivery = options.delivery;
-			//this.getData();
+			this.getData();
 		},
 		onShow() {
 			this.$fire.on('takeout', function(e) {
@@ -290,6 +310,11 @@
 			changeTime(n) {},
 			getTime(type) {
 				let myDate = new Date();
+				let day = myDate.getDate().toString().padStart(2, "0");
+				const month = (myDate.getMonth() + 1)
+				              .toString()
+				              .padStart(2, "0");
+				const year = myDate.getFullYear().toString();
 				let myhours = myDate.getHours(); //获取当前小时数(0-23)
 				if (myhours < 10) {
 					myhours = '0' + myhours;
@@ -311,7 +336,7 @@
 					wmhours = '0' + wmhours;
 				}
 				if (type == 'my') {
-					return myhours + ':' + myminute;
+					return  year+'-'+month+'-'+day+' 09:00'; 
 				} else if (type == 'wm') {
 					return wmhours + ':' + wmminute;
 				}
@@ -328,13 +353,24 @@
 					self.min_money = res.data.orderInfo.supplier.min_money;
 					self.temlIds = res.data.template_arr;
 					self.exist_address = self.OrderData.exist_address;
-					self.Address = self.OrderData.address;
+					if (self.Address!="")
+					{
+						
+						self.Address = self.OrderData.address; 
+						self.cust_id=self.OrderData.address.user_id;
+						self.contact_person=self.OrderData.address.contact_person;
+						self.phone=self.OrderData.address.phone;
+						self.name=self.OrderData.address.name;
+					}
+					else
+					self.Address=null;
+					
 					self.extract_store = self.OrderData.extract_store;
 					self.last_extract = self.OrderData.last_extract;
 					self.ProductData = self.OrderData.product_list;
 					self.supplier = res.data.orderInfo.supplier;
-					self.linkman = res.data.orderInfo.last_extract.linkman;
-					self.phone = res.data.orderInfo.last_extract.phone;
+					//self.linkman = res.data.orderInfo.last_extract.linkman;
+					//self.phone = res.data.orderInfo.last_extract.phone;
 					self.delivery_set = res.data.orderInfo.supplier.delivery_set;
 					self.store_set = res.data.orderInfo.supplier.store_set;
 					if (self.OrderData.delivery == '10') {
@@ -352,7 +388,7 @@
 					if (self.cart_type == 0) {
 						if (self.delivery_set.indexOf(self.delivery) == -1) {
 							if (self.delivery_set[0] == '10') {
-								console.log('执行');
+								console.log('執行');
 								self.tabFunc(0, true);
 							} else {
 								self.tabFunc(1, true);
@@ -368,7 +404,7 @@
 						}
 					}
 				 
-					self.wmtime = self.getTime('wm');
+					//self.wmtime = self.getTime('wm');
 					self.mealtime = self.getTime('my');
 					self.estitime = self.getTime('wm');
 					self.deliverySetting = self.OrderData.deliverySetting;
@@ -480,7 +516,8 @@
 					mydistrict: self.mydistrict,
 					myregion: self.myregion,
 					shop_supplier_id: self.options.shop_supplier_id,
-					pay_source: self.getPlatform()
+					pay_source: self.getPlatform(),
+					cust_id: self.cust_id
 				};
 				if (self.delivery == 10) {
 					params.mealtime = self.wmtime;

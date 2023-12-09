@@ -16,8 +16,10 @@
 						<view class="gray9 d-b-c"><text> </text></view>
 						
 						<view class="d-s-c">
-							 
-							<view class="none_line ml30"></view>
+							 <view class="icon-box plus d-c-c ml30" @click="radioChange(item.address_id)">
+							 	<text class="gray9 ml10">顧客編號:{{item.user_id}}</text>
+							 </view>
+							 <view class="none_line ml30"></view> 
 							<view class="icon-box plus d-c-c ml30 mr40" @click="radioChange(item.address_id)">
 								<image class="add_icon_img" src="/static/icon/edit.png" mode="aspectFill"></image>
 								<text class="gray9 ml10">選擇</text>
@@ -27,7 +29,7 @@
 				 
 				</view>
 			</view>
-			<view class="add_add-btn theme-btn" @click="addAddress()">新增收货地址</view>
+		 
 		</view>
 		<view v-else>
 			<view class="none_add">
@@ -78,6 +80,7 @@
 				}, function(res) {
 					self.listData = res.data.list;
 					self.default_id = res.data.default_id + '';
+					 
 					self.loadding = false;
 					uni.hideLoading();
 				});
@@ -98,17 +101,17 @@
 			radioChange(e) {
 				let self = this;
 				self.default_id = e;
-				self._post('user.address/setDefault', {
-					address_id: e,
-				}, function(res) {
-					self.$fire.fire('takeout', true)
+				 self._post('user.address/setDefault',{address_id: e,}, function(res) {
+					
 					// #ifndef H5
 					uni.navigateBack();
 					// #endif
 					// #ifdef H5
 					history.go(-1);
 					// #endif
-				});
+					self.$fire.fire('takeout', true)
+				}); 
+				 
 				return false;
 
 			},
