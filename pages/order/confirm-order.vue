@@ -86,7 +86,7 @@
 			<view class="meal_item">
 				<view class="d-b-c item">
 					<view class="mr20">收貨人/聯絡人:</view>
-				<input class="flex-2" type="text" v-model="name" placeholder="" /> 
+				<input class="flex-2" type="text" v-model="contact_person" placeholder="" /> 
 				</view>
 			</view>
 			<view class="meal_item">
@@ -358,9 +358,9 @@
 						
 						self.Address = self.OrderData.address; 
 						self.cust_id=self.OrderData.address.user_id;
-						self.contact_person=self.OrderData.address.contact_person;
+						self.contact_person=self.OrderData.address.name;
 						self.phone=self.OrderData.address.phone;
-						self.name=self.OrderData.address.name;
+						self.name=res.data.nickName;
 					}
 					else
 					self.Address=null;
