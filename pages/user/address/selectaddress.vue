@@ -5,8 +5,11 @@
 				<view class="address p-30-0 border-b-d" v-for="(item,index) in listData" :key="index">
 					<view class="info flex-1 mb10">
 						<view class="user f32 d-b-c">
+							<text>{{item.nickName}}</text>
+							<text class="ml20 gray9 f26">Tel:{{item.phone}}</text>
+						</view>
+						<view class="pt20 f26 gray3">
 							<text>{{item.name}}</text>
-							<text class="ml20 gray9 f26">{{item.phone}}</text>
 						</view>
 						<view class="pt20 f26 gray3">
 							{{item.detail}}{{item.address}}

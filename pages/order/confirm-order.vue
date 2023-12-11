@@ -445,7 +445,7 @@
 							cart_ids: self.options.cart_ids || 0,
 							shop_supplier_id: self.options.shop_supplier_id || 0,
 							order_type: self.options.cart_type,
-							table_id: self.table_id
+							table_id: self.table_id 
 						}),
 						function(res) {
 							callback(res);

@@ -3,10 +3,10 @@
 		<view class="d-b-c time_picker">
 			<view class="" style="width: 40%;">
 				<scroll-view style="height: 600rpx;" scroll-y="true">
-					<template v-for="(item,index) in hours" :key='index'>
-						<view v-if="myhours <= item.end"
-							:class="pickhours&&item.start!=pickhours.start?'hours':'hours-active'" @click="pickH(item)">
-							{{item.start+':00~'+item.end+':00'}}
+					<template v-for="(item,index) in dates" :key='index'>
+						<view  
+							:class="pickdates&&item!=pickdates?'hours':'hours-active'" @click="pickH(item)">
+							{{item }}
 						</view>
 					</template>
 
@@ -14,31 +14,14 @@
 			</view>
 			<view class="flex-1">
 				<scroll-view style="height: 600rpx;" scroll-y="true">
-					<template v-for="(item,index) in minute" :key='index'>
+					<template v-for="(item,index) in ampm" :key='index'>
 						<view
-							v-if="pickhours&&myhours>=pickhours.start&&myminute<=item&&myhours!=inittime(pickhours.end)"
-							@click="picktime(pickhours.start+':'+item)">
-							{{pickhours.start+":"+item}}
+							 
+							@click="picktime(pickdates+' '+item.value)">
+							{{item.label}}
 						</view>
 					</template>
-					<template v-for="(item,index) in minute" :key='index'>
-						<view v-if="pickhours&&myhours<=pickhours.start&&myhours!=inittime(pickhours.end)"
-							@click="picktime(pickhours.start+':'+item)">
-							{{pickhours.start+":"+item}}
-						</view>
-					</template>
-					<template v-for="(item,index) in minute" :key='index'>
-						<view v-if="pickhours&&myhours!=inittime(pickhours.end)"
-							@click="picktime(inittime(pickhours.end) +':'+item)">
-							{{inittime(pickhours.end) +":"+item}}
-						</view>
-					</template>
-					<template v-for="(item,index) in minute" :key='index'>
-						<view v-if="pickhours&&myminute<=item&&myhours==inittime(pickhours.end)"
-							@click="picktime(inittime(pickhours.end) +':'+item)">
-							{{inittime(pickhours.end)+":"+item}}
-						</view>
-					</template>
+					 
 
 				</scroll-view>
 			</view>
@@ -63,61 +46,26 @@
 				minute: [
 					'10', '25', '40', '55',
 				],
-				hours: [{
-						start: '00',
-						end: "02"
-					},
+				dates:[  '2023-12-06','2023-12-08','2023-12-08','2023-12-08','2023-12-08','2023-12-08','2023-12-08','2023-12-08','2023-12-08','2023-12-08'],
+				hours: [ 
 					{
-						start: '02',
-						end: "04"
-					},
-					{
-						start: '04',
-						end: "06"
-					},
-					{
-						start: '06',
-						end: "08"
-					},
-					{
-						start: '08',
-						end: "10"
-					},
-					{
-						start: '10',
+						start: '09',
 						end: "12"
 					},
 					{
-						start: '12',
-						end: "14"
-					},
-					{
 						start: '14',
-						end: "16"
-					},
-					{
-						start: '16',
 						end: "18"
 					},
-					{
-						start: '18',
-						end: "20"
-					},
-					{
-						start: '20',
-						end: "22"
-					},
-					{
-						start: '22',
-						end: "24"
-					},
+					 
 				],
+				ampm:[{ label:'AM 09:00-12:00',value: '09:00'},{label: 'PM 14:00-18:00' ,value: '14:00' }],
+				myDates: {
+					 
+				},
 				myhours: '',
 				myminute: '',
-				pickhours: {
-					start: '',
-					end: ""
-				},
+				pickhours: '',
+				pickdates:'',
 				mealtime: ''
 			}
 		},
@@ -137,19 +85,24 @@
 			getData() {
 				let self = this;
 				let myDate = new Date();
-				self.myhours = myDate.getHours(); //获取当前小时数(0-23)
-				self.myminute = myDate.getMinutes(); //获取当前分钟数(0-59)
-				self.pickH(self.hours[self.myhours])
-				self.$nextTick(function() {
-					self.hours.forEach((item, index) => {
-						if (item.start <= self.myhours && self.myhours < item.end) {
-							self.pickH(item)
-						}
-					})
+			     
+				let day = myDate.getDate().toString().padStart(2, "0");
+				const month = (myDate.getMonth() + 1)
+				              .toString()
+				              .padStart(2, "0");
+				const year = myDate.getFullYear().toString();
+				self.dates.forEach((item, index) => {
+					day = (myDate.getDate() + index).toString().padStart(2, "0");
+					
+					 self.dates[index]=year+'-'+month+'-'+day; 
+					 if (index==0)
+					 		self.pickH(self.dates[index]);
+ 
 				})
+			 
 			},
 			pickH(n) {
-				this.pickhours = n;
+				this.pickdates = n;
 			},
 			/*关闭弹窗*/
 			hidePopupFunc(e) {
