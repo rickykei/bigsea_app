@@ -1,22 +1,27 @@
 <template>
 	<view :data-theme='theme()' :class="theme() || ''">
 		<view class="order-box" v-if="!loadding">
-			<view class="f40 fb mb40">
+			<view class="left" @click="selectShop('/pages/index/index')">
+			<view class="f40 fb mb40 ">
 				{{detail.state_text}}
+			</view>
+			 
 			</view>
 			 
 			<view class="top-state"
 				v-if="detail.order_type!=1 && detail.delivery_type.value==10 && detail.order_status.value == 10">
 				<view class="d-b-c state-height border-b">
-					<view class="">配送中</view>
+					<view class=""> {{detail.user.nickName}} (配送中)</view>
+					<view class=""> {{detail.address.name+' '+detail.address.phone}} </view>
 					<!-- <view>联系配送员</view> -->
 				</view>
 				<view class="d-b-c state-height">
-					<view>預計送貨时間</view>
+					<view>預計送貨時間</view>
 					<view class="blue">{{detail.mealtime}}</view>
 				</view>
 			</view>
 			<view class="order-content">
+				
 				<view class="shop-name border-b">{{detail.supplier.name}}</view>
 				<view class="order-prolist">
 					<view class="d-s-c proitem" v-for="(good, index) in detail.product" :key="index">
@@ -31,11 +36,11 @@
 								<view class="f20 gray9 w-b-a">
 									{{ good.product_attr }}
 								</view>
-								<view class="f22 gray9">￥{{ good.total_num }}</view>
+								<view class="f22 gray9">${{ good.total_num }}</view>
 							</view>
 							<view class="pro-price-item">
-								<view class="f24 gray3 mb10">￥{{ good.product_price }}</view>
-								<view class="f22 gray9 text-d-line">￥{{ good.line_price }}</view>
+								<view class="f24 gray3 mb10">${{ good.product_price }}</view>
+								<view class="f22 gray9 text-d-line">${{ good.line_price }}</view>
 							</view>
 						</view>
 					</view>
@@ -43,19 +48,19 @@
 				<view>
 					<view class="pro-cont-item">
 						<view>商品小計</view>
-						<view>￥{{detail.total_price}}</view>
+						<view>${{detail.total_price}}</view>
 					</view>
 					<view class="pro-cont-item" v-if="detail.bag_price!=0">
-						<view>包装费</view>
-						<view>￥{{detail.bag_price}}</view>
+						<view>包裝費</view>
+						<view>${{detail.bag_price}}</view>
 					</view>
 					<view class="pro-cont-item" v-if="detail.express_price>0">
-						<view>配送费</view>
-						<view>￥{{detail.express_price}}</view>
+						<view>配送費</view>
+						<view>${{detail.express_price}}</view>
 					</view>
 					<view class="pro-cont-item pro-cont-total">
 						共{{detail.product.length}}件商品  小計
-						<text>￥{{detail.pay_price}}</text>
+						<text>${{detail.pay_price}}</text>
 					</view>
 				</view>
 			</view>
@@ -84,7 +89,7 @@
 					<view class="right">{{detail.order_no}}</view>
 				</view>
 				<view class="meal_item" v-if="detail.table_no">
-					<view>桌号</view>
+					<view>桌號</view>
 					<view class="right">{{detail.table_no}}</view>
 				</view>
 				<view class="meal_item">
@@ -92,8 +97,8 @@
 					<view class="right">{{detail.create_time}}</view>
 				</view>
 				<view class="meal_item">
-					<view>支付金额</view>
-					<view class="right">{{detail.pay_price}}</view>
+					<view>支付金額</view>
+					<view class="right">${{detail.pay_price}}</view>
 				</view>
 			 
 				<view class="meal_item">
@@ -158,8 +163,10 @@
 		},
 		onLoad(e) {
 			this.order_id = e.order_id;
+				
 		},
 		mounted() {
+			
 			uni.showLoading({
 				title: '加载中'
 			});
@@ -167,6 +174,11 @@
 			this.getData();
 		},
 		methods: {
+			selectShop(url) {
+				let self = this;
+				let delivery = self.orderType == 'takeout' ? 10 : 20;
+				self.gotoPage(url + '?dinner_type=' + delivery);
+			},
 			/*获取数据*/
 			getData() {
 				let self = this;
@@ -274,7 +286,7 @@
 				self.isPayPopup = false;
 				let order_id = self.order_id;
 				uni.showLoading({
-					title: '加载中'
+					title: '加載中'
 				});
 				self._post(
 					'user.order/pay', {
