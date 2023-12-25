@@ -69,6 +69,7 @@
 						</view>
 						<view class="order-bts">
 							<block v-if="item.order_status.value == 10">
+								<button @click.stop="downloadPdf(item.order_id)">PDF</button>
 								<!-- 未支付取消订单 -->
 								<button class="default" @click.stop="cancelOrder(item.order_id)" type="default"
 									v-if="item.pay_status.value == 10&&item.order_source != 30">取消訂單</button>
@@ -406,7 +407,19 @@
 			},
 			gohome() {
 				this.gotoPage('/pages/index/index');
-			}
+			},
+			 downloadPdf(e) {
+			      // 创建<a>元素以下载PDF
+			      const link = document.createElement('a');
+			      link.href = '/index.php/api/pdf.gen/pdf?oid='+ e +'&app_id='+this.app_id+'&token='+uni.getStorageSync('token');
+			      link.target = '_blank';
+			      link.download = e+'.pdf'; 
+			      // 模拟点击<a>元素
+			      document.body.appendChild(link);
+			      link.click();
+			      document.body.removeChild(link);
+			    }
+			
 		}
 	};
 </script>
