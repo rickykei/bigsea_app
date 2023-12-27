@@ -35,31 +35,41 @@
 			<view class="order-list">
 				<view class="item d-b-s" v-for="(item, index) in listData" :key="index"
 					@click.stop="gotoOrder(item.order_id)">
-					<view class="mr10">
-						<image class="sup_img" :src="item.supplier.logo || '/static/default.png'" mode="aspectFill">
-						</image>
-					</view>
+				
 					<view class="flex-1">
 						<view class="d-b-c pb14">
 							<view class="item-dianpu">
 								<view class="item-d-l mr10">
-									<text class="gray3 f28 fb text-ellipsis" style="width: 245rpx;"
-										v-if="item.supplier">{{ item.supplier.name }}</text>
+									<text class="gray3 f28 fb text-ellipsis" style="width: 420rpx;"
+										v-if="item.user.nickName">({{item.order_id}}){{item.user.nickName}}</text>
 								</view>
 							</view>
 							<view class="state">
 								<text class="dominant f26">{{ item.state_text }}</text>
 							</view>
 						</view>
+						<view class="d-b-c pb14">
+							<view class="item-dianpu">
+								<view class="item-d-l mr10">
+									<text class="gray3 f28 fb " style="width: 620rpx;"
+										v-if="item.address.address">{{item.address.address}}</text>
+								</view>
+							</view> 
+						</view>
 						<view class="order-head d-b-c">
 							<view>
 								<text class="shop-name flex-1">下單時間：{{ item.create_time }}</text>
 							</view>
 						</view>
+						<view class="order-head d-b-c">
+							<view>
+								<text class="shop-name flex-1">送貨時間：{{ item.mealtime }}</text>
+							</view>
+						</view>
 						<!--多个商品显示-->
-						<view class="product-list pr">
-							<view class="o-a pr150">
-								<view class="list d-s-c pr100">
+						<view class="product-list">
+							<view class="o-a ">
+								<view class="list d-s-c">
 									<view class="cover mr20" v-for="(img, num) in item.product" :key="num">
 										<image :src="img.image ? img.image.file_path : ''" mode="aspectFit"></image>
 										<view class="mt10 tc f24 text-ellipsis">{{ img.product_name }}</view>
@@ -408,10 +418,13 @@
 			gohome() {
 				this.gotoPage('/pages/index/index');
 			},
-			 downloadPdf(e) {
+			downloadPdf(e) {
 			      // 创建<a>元素以下载PDF
 			      const link = document.createElement('a');
-			      link.href = '/index.php/api/pdf.gen/pdf?oid='+ e +'&app_id='+this.app_id+'&token='+uni.getStorageSync('token');
+				  if(process.env.NODE_ENV==='development')
+			      link.href = '/api/index.php/api/pdf.gen/pdf?oid='+ e +'&app_id='+this.app_id+'&token='+uni.getStorageSync('token');
+				  else
+				  link.href = '/index.php/api/pdf.gen/pdf?oid='+ e +'&app_id='+this.app_id+'&token='+uni.getStorageSync('token');
 			      link.target = '_blank';
 			      link.download = e+'.pdf'; 
 			      // 模拟点击<a>元素
@@ -524,7 +537,7 @@
 		display: flex;
 		justify-content: space-between;
 		align-items: center;
-		width: 544rpx;
+		width: 600rpx;
 		border-top: 2rpx solid #eeeeee;
 		border-bottom: 2rpx solid #eeeeee;
 		margin: 20rpx 0;

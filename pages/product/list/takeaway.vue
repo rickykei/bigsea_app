@@ -67,9 +67,10 @@
 											v-for="(good, key) in item.products" :key="key">
 											<image :src="good.product_image" class="image"></image>
 											<view class="right">
-												<view class="ww100">
+												<view class="ww100" >
 													<view class="name">{{ good.product_name }}</view>
-													<view class="text-ellipsis">{{ good.selling_point }}{{ good.content }}</view>
+													<view class="text-ellipsis" >{{ good.selling_point }}</view>
+													<view class="text-ellipsis" v-html="good.content"></view>
 												</view>
 												<view class="price_and_action">
 													<view>

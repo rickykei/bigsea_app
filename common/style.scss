@@ -81,6 +81,7 @@ body {
 	@include border_color("border_color");
 }
 .theme-btn{
+ 
 	@include border_color("border_color");
 	@include background_color("background_color");
 	@include text_color("text_color");
@@ -90,6 +91,7 @@ body {
 	@include text_color("text_color");
 }
 .theme-borderbtn{
+	 
 	background:none;
 	border: 1rpx solid;
 	@include border_color("border_color");
@@ -98,7 +100,7 @@ body {
 /*button*/
 button {
 	margin: 0;
-	font-size: 28rpx;
+	font-size: 28rpx; 
 }
 
 button.btn-gcred {

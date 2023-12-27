@@ -90,10 +90,12 @@
 		</view>
 		<!--详情内容-->
 		<view class="product-content">
+			<p><span style="font-size: 20px;">
 			<view class="border-b-e">
 				<view class="group-hd d-s-c"><text class="min-name pr f30 fb">详情</text></view>
 			</view>
 			<view class="content-box" v-html="detail.content"></view>
+			</span></p>
 		</view>
 		<!-- 商品详情模态框 end -->
 	</view>
