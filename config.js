@@ -21,7 +21,9 @@ export default {
 	//inonfont 字体url
 	font_url: 'https://at.alicdn.com/t/font_2184879_i7r5f24ts0d.ttf',
 	/* 腾讯地图Key*/
-	mpKey:'R37BZ-RWO3D-NER4T-PLYZD-W2I27-6IB32'
+	mpKey:'R37BZ-RWO3D-NER4T-PLYZD-W2I27-6IB32',
+	
+	theme: 0,
 } 
 
 

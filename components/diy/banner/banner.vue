@@ -57,12 +57,12 @@
 	.diy-banner-box,
 	.diy-banner-box .swiper {
 		width: 750rpx;
-		height: 500rpx;
+		height: 1200rpx;
 	}
 
 	.diy-banner-box image {
 		width: 750rpx;
-		height: 500rpx;
+		height: 1200rpx;
 	}
 
 	.banner-xf-box {
@@ -81,7 +81,7 @@
 		width: 690rpx;
 		margin: 0 auto;
 		position: relative;
-		margin-top: -80rpx;
+		margin-top: -650rpx;
 	}
 
 	.rides {

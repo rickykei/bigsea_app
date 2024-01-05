@@ -30,15 +30,15 @@
 			<br>
 			<view class="meal_item">
 				<view class="d-b-c item">
-					  <view class="mr20">會員編號：</view>
-						<input class="flex-1" type="text" v-model="cust_id" placeholder="請輸入會員編號" />  
+					  <view class="mr20 f36">會員編號：</view>
+						<input class="flex-1 f36" type="text" v-model="cust_id" placeholder="請輸入會員編號" />  
 				</view> 
 			</view>
 			<view class="d-b-c meal_item" @click="districtpick()" v-if="tab_type == 0 && delivery == 10">
-				<view class="f28">港九：</view>
+				<view class="f36">港九：</view>
 				<view class="uni-list">
 					<view class="uni-list-cell">
-						<view class="uni-list-cell-left f28 fb">
+						<view class="uni-list-cell-left f36 fb">
 							<text class="blue">{{ mydistrict.label }}</text>
 							<text class="icon iconfont icon-jiantou"></text>
 						</view>
@@ -46,10 +46,10 @@
 				</view>
 			</view>
 			<view class="d-b-c meal_item" @click="regionpick()" v-if="tab_type == 0 && delivery == 10">
-				<view class="f28">區：</view>
+				<view class="f36">區：</view>
 				<view class="uni-list">
 					<view class="uni-list-cell">
-						<view class="uni-list-cell-left f28 fb">
+						<view class="uni-list-cell-left f36 fb">
 							<text class="blue">{{ myregion.shortname }}</text>
 							<text class="icon iconfont icon-jiantou"></text>
 						</view>
@@ -60,7 +60,7 @@
 				<view class="headr_top">
 					<view class="flex-1" style="width: 100%;" v-if="tab_type != 1">
 						<view class="left overflow-hidden">
-							<view class="overflow-hidden f28 fb w-b-a" style="width: 600rpx;"
+							<view class="overflow-hidden f36 fb w-b-a" style="width: 600rpx;"
 								@click="gotoPage('/pages/user/address/selectaddress?shop_supplier_id=' + options.shop_supplier_id+'&myregion='+this.myregion.id+'&cust_id='+this.cust_id)">
 								<template v-if="Address != null">
 									{{  Address.address  }}
@@ -72,31 +72,31 @@
 						</view>
 					</view>
 					<view class="header_bottom" v-if="tab_type == 1">
-						<view class="uni-list-cell-left f32 fb"><input type="number" v-model="phone"
+						<view class="uni-list-cell-left f36 fb"><input type="number" v-model="phone"
 								placeholder="請輸入聯系電話" /></view>
 					</view>
 				</view>
 			</view> 
 			<view class="meal_item">
 				<view class="d-b-c item">
-					<view class="mr20">公司名:</view>
-					<input class="flex-2" type="text" v-model="name" placeholder="" /> 
+					<view class="mr20 f36">公司名:</view>
+					<input class="flex-2 f36" type="text" v-model="name" placeholder="" /> 
+				</view>
+			</view>
+			<view class="meal_item">
+				<view class="d-b-c item ">
+					<view class="mr10 f36">聯絡人:</view>
+				<input class="flex-2 f36" type="text" v-model="contact_person" placeholder="" /> 
 				</view>
 			</view>
 			<view class="meal_item">
 				<view class="d-b-c item">
-					<view class="mr20">收貨人/聯絡人:</view>
-				<input class="flex-2" type="text" v-model="contact_person" placeholder="" /> 
-				</view>
-			</view>
-			<view class="meal_item">
-				<view class="d-b-c item">
-					<view class="mr20">收貨電話:</view>
-						<input class="flex-2" type="text" v-model="phone" placeholder="請輸入會員編號" /> 
+					<view class="mr10 f36">收貨電話:</view>
+						<input class="flex-1 f36" type="text" v-model="phone" placeholder="請輸入會員編號" /> 
 				</view>
 			</view>
 			<view class="d-b-c meal_item" @click="timepick()" v-if="tab_type == 0 && delivery != 10">
-				<view class="f28">送貨時間</view>
+				<view class="f36">送貨時間</view>
 				<view class="uni-list">
 					<view class="uni-list-cell">
 						<view class="uni-list-cell-left f28 ">
@@ -107,7 +107,7 @@
 				</view>
 			</view>
 			<view class="d-b-c meal_item" v-if="tab_type == 1 && delivery != 10">
-				<view class="f28">預計取貨時間</view>
+				<view class="f36">預計取貨時間</view>
 				<view class="uni-list">
 					<view class="uni-list-cell">
 						<view class="uni-list-cell-left f28 ">
@@ -117,7 +117,7 @@
 				</view>
 			</view>
 			<view class="d-b-c meal_item" @click="timepick()" v-if="tab_type == 0 && delivery == 10">
-				<view class="f28">預計送達時間：</view>
+				<view class="f36">預計送達時間：</view>
 				<view class="uni-list">
 					<view class="uni-list-cell">
 						<view class="uni-list-cell-left f28 ">
@@ -142,14 +142,14 @@
 								<image :src="item.image.file_path" mode="aspectFill"></image>
 							</view>
 							<view class="flex-1">
-								<view class="title f30 fb mb16">{{ item.product.product_name }}</view>
-								<view class="num-wrap pl-30 gray9 f26">{{ item.describe }}</view>
-								<view class="f26 gray9">×{{ item.product_num }}</view>
+								<view class="title f32 fb mb16">{{ item.product.product_name }}</view>
+								<view class="num-wrap pl-30 gray9 f32">{{ item.describe }}</view>
+								<view class="f32 gray9">×{{ item.product_num }}</view>
 							</view>
 						</view>
 						<view class="" style="height: 148rpx;text-align: right;">
 							<view class="f32 order_item mb16">${{ item.price }}</view>
-							<view class="f24 text-d-line gray9 mb16">${{ item.product_price }}</view>
+							<view class="f32 text-d-line gray9 mb16">${{ item.product_price }}</view>
 						</view>
 					</view>
 				</view>
@@ -184,8 +184,8 @@
 			</view>
 			<view class="meal_item">
 				<view class="d-b-c item">
-					<view class="mr20">備注:</view>
-					<input class="flex-1" type="text" v-model="remark" placeholder="請填寫您的其他要求" />
+					<view class="mr20 f32">備注:</view>
+					<input class="flex-1 f32" type="text" v-model="remark" placeholder="請填寫您的其他要求" />
 				</view>
 			</view>
 			<!--底部支付-->

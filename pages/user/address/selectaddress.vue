@@ -4,14 +4,14 @@
 			<view class="address-list bg-white">
 				<view class="address p-30-0 border-b-d" v-for="(item,index) in listData" :key="index">
 					<view class="info flex-1 mb10">
-						<view class="user f32 d-b-c">
+						<view class="user f36 d-b-c">
 							<text>{{item.nickName}}</text>
-							<text class="ml20 gray9 f26">Tel:{{item.phone}}</text>
+							<text class="ml20 gray9 f36">Tel:{{item.phone}}</text>
 						</view>
-						<view class="pt20 f26 gray3">
+						<view class="pt20 f36 gray3">
 							<text>{{item.name}}</text>
 						</view>
-						<view class="pt20 f26 gray3">
+						<view class="pt20 f36 gray3">
 							{{item.detail}}{{item.address}}
 						</view>
 					</view>
@@ -20,12 +20,12 @@
 						
 						<view class="d-s-c">
 							 <view class="icon-box plus d-c-c ml30" @click="radioChange(item.address_id)">
-							 	<text class="gray9 ml10">顧客編號:{{item.user_id}}</text>
+							 	<text class="gray9 ml10 f36">顧客編號:{{item.user_id}}</text>
 							 </view>
 							 <view class="none_line ml30"></view> 
 							<view class="icon-box plus d-c-c ml30 mr40" @click="radioChange(item.address_id)">
 								<image class="add_icon_img" src="/static/icon/edit.png" mode="aspectFill"></image>
-								<text class="gray9 ml10">選擇</text>
+								<text class="gray9 ml10 f36">選擇</text>
 							</view>
 						</view>
 					</view>
