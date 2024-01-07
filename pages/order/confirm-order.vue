@@ -95,6 +95,17 @@
 						<input class="flex-1 f36" type="text" v-model="phone" placeholder="請輸入會員編號" /> 
 				</view>
 			</view>
+			<view class="d-b-c meal_item" @click="tableNoPick()" v-if="tab_type == 0 && delivery == 10">
+				<view class="f36">選車派送：</view>
+				<view class="uni-list">
+					<view class="uni-list-cell">
+						<view class="uni-list-cell-left f36 fb">
+							<text class="blue">{{ mytableno.label }}</text>
+							<text class="icon iconfont icon-jiantou"></text>
+						</view>
+					</view>
+				</view>
+			</view>
 			<view class="d-b-c meal_item" @click="timepick()" v-if="tab_type == 0 && delivery != 10">
 				<view class="f36">送貨時間</view>
 				<view class="uni-list">
@@ -199,6 +210,7 @@
 			<timepicker :isTimer="isTimer" @close="closetimer"></timepicker>
 			<regionpicker :isRegion="isRegion" :selectedDistrict="selectedDistrict"  @close="closeregion"></regionpicker>
 			<districtpicker :isDistrict="isDistrict" @close="closedistrict"></districtpicker>
+			<tablenopicker :isTableNo="isTableNo" @close="closeTableNo"></tablenopicker>
 		</view>
 	</view>
 </template>
@@ -207,7 +219,7 @@
 	import timepicker from '@/components/timepicker/timepicker';
 	import regionpicker from '@/components/regionpicker/regionpicker';
 	import districtpicker from '@/components/districtpicker/districtpicker';
-	 
+	import tablenopicker from '@/components/tablenopicker/tablenopicker'; 
 	import {
 		pay
 	} from '@/common/pay.js';
@@ -216,6 +228,7 @@
 			timepicker,
 			districtpicker,
 			regionpicker,
+			tablenopicker,
 		},
 		data() {
 			return {
@@ -263,11 +276,14 @@
 				isTimer: false,
 				isRegion:false,
 				isDistrict:false,
+				isTableNo:false,
 				selectedDistrict: 0,
 				selectedShopSupplierId: 0,
+				
 				mealtime: '',
 				myregion: {label:'',id:0},
 				mydistrict: {label:'',id:0},
+				mytableno: {label:'',id:0},
 				cust_id:'',
 				cust_name: '',
 				wmtime: '',
@@ -515,6 +531,7 @@
 					mealtime: self.mealtime,
 					mydistrict: self.mydistrict,
 					myregion: self.myregion,
+					mytableno: self.mytableno.id,
 					shop_supplier_id: self.options.shop_supplier_id,
 					pay_source: self.getPlatform(),
 					cust_id: self.cust_id
@@ -581,6 +598,9 @@
 			districtpick() {
 				this.isDistrict = true; 
 			},
+			tableNoPick() {
+				this.isTableNo = true; 
+			},
 			closetimer(e) {
 				if (e != '') {
 					this.wmtime = e;
@@ -601,6 +621,13 @@
 					 
 				}
 				this.isRegion = false;
+			},
+			closeTableNo(e) {
+				if (e != '') {
+					this.mytableno = e;
+					 
+				}
+				this.isTableNo = false;
 			},
 			packTypeFunc(n) {
 				this.is_pack = n;
