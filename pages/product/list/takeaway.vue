@@ -63,9 +63,9 @@
 									</view>
 									<view class="items">
 										<!-- 商品 begin -->
-										<view class="good" @click="gotoDetail(good)"
+										<view class="good" 
 											v-for="(good, key) in item.products" :key="key">
-											<image :src="good.product_image" class="image"></image>
+											<image :src="good.product_image" class="image" @click="gotoDetail(good)"></image>
 											<view class="right">
 												<view class="ww100" >
 													<view class="name">{{ good.product_name }}</view>
@@ -87,15 +87,17 @@
 														</view>
 													</view>
 													<view class="btn-group" v-else>
-														<button type="default" v-if="good.cart_num != 0" plain
+														<button type="default"  plain
 															class="btn reduce_btn" size="min" hover-class="none"
 															@tap.stop="reduceFunc(good)">
 															<view class="icon icon-jian iconfont iconsami-select">
 															</view>
-														</button>
-														<view class="number" v-if="good.cart_num != 0">
-															{{ good.cart_num }}
-														</view>
+														</button> 
+														  
+															<input class="flex-1 f36 border-red box-s-b tc" type="number"
+															 v-model="good.cart_num" 
+															@blur="addCartByManual(good)"/> 
+													 
 														<button type="primary" class="btn add_btn" size="min"
 															hover-class="none" @tap.stop="addCart(good)">
 															<view class="icon icon-jia iconfont iconadd-select"></view>
@@ -188,7 +190,7 @@
 											@tap="cartReduce(item)">
 											<view class="iconfont icon icon-jian iconsami-select"></view>
 										</button>
-										<view class="number">{{ item.product_num }}</view>
+										<view class="number"><input class="flex-1 f36" type="text" v-model="item.product_num" />  </view>
 										<button class="btn theme-btn" size="min" hover-class="none"
 											@tap="cartAdd(item)">
 											<view class="iconfont icon icon-jia iconadd-select"></view>
@@ -339,7 +341,9 @@
 				this.getcityData();
 				this.sizeCalcState = false;
 			},
-			/* 获取商品类型 */
+			/* 获取商品类型
+			 get cat list on db 
+			 */
 			getCategory() {
 				let self = this;
 				this.sizeCalcState = false;
@@ -415,6 +419,7 @@
 				let self = this;
 				// 第一次，如果是公众号，则初始化微信sdk配置
 				// #ifdef H5
+				/*
 				if (self.isWeixin()) {
 					let sign = uni.getStorageSync('sign');
 					if (!sign) {
@@ -437,10 +442,14 @@
 					}
 				} else {
 					self.getLocation();
+					 
 				}
+				*/
+			    self.getLocation();
 				// #endif
 				// #ifndef H5
 				self.getLocation();
+				 
 				// #endif
 			},
 			/*授权启用定位权限
@@ -509,7 +518,9 @@
 			},
 			reCart(res) {
 				let self = this;
+				//cart icon total num
 				self.cart_total_num = res.data.cartInfo.cart_total_num;
+				// sum of total price inside the cart
 				self.line_price = res.data.cartInfo.total_line_money;
 				self.total_price = res.data.cartInfo.total_pay_price;
 				self.total_bag_price = res.data.cartInfo.total_bag_price;
@@ -518,6 +529,7 @@
 				self.reduce_diff_value = res.data.cartInfo.reduce_diff_value;
 			},
 			addCart(goods) {
+				console.log('addCart');
 				let self = this;
 				if (self.addclock) {
 					return;
@@ -558,6 +570,7 @@
 					params,
 					function(res) {
 						let num = 1;
+						//get temp cart record from db after submit new qty to db
 						self.reCart(res);
 						if (goods.cart_num) {
 							num = goods.cart_num + 1;
@@ -569,6 +582,66 @@
 								}
 							});
 						});
+						self.addclock = false;
+						self.getCategory();
+					},
+					function(err) {
+						self.addclock = false;
+					}
+				);
+			},
+			addCartByManual(goods) {
+				console.log('addCartByManual');
+				let self = this;
+				if (self.addclock) {
+					return;
+				}
+				if (goods.limit_num != 0 && goods.limit_num <= goods.cart_num) {
+					uni.showToast({
+						icon: 'none',
+						title: '超過限購數量'
+					});
+					return;
+				}
+				if (goods.product_stock <= 0 || goods.product_stock <= goods.cart_num) {
+					uni.showToast({
+						icon: 'none',
+						title: '沒有更多庫存了'
+					});
+					return;
+				}
+			
+				let params = {
+					product_id: goods.product_id,
+					product_num: goods.cart_num,
+					product_sku_id: goods.sku[0].product_sku_id,
+					attr: '',
+					feed: '',
+					describe: '',
+					price: goods.sku[0].product_price,
+					bag_price: goods.sku[0].bag_price,
+					shop_supplier_id: goods.supplier.shop_supplier_id,
+					cart_type: 0,
+					dinner_type: self.dinner_type,
+					product_price: goods.sku[0].line_price,
+					delivery: self.orderType == 'takeout' ? 10 : 20
+				};
+				self.addclock = true;
+				self._post(
+					'order.cart/addByManual',
+					params,
+					function(res) {
+						let num = goods.cart_num;
+						self.reCart(res);
+					 /*
+						self.goods_list.forEach((item, index) => {
+							item.products.forEach((product, product_index) => {
+								if (product.product_id == goods.product_id) {
+									self.$set(product, 'cart_num', product.cart_num + num);
+								}
+							});
+						});
+						*/
 						self.addclock = false;
 						self.getCategory();
 					},
@@ -633,6 +706,7 @@
 			},
 			/* 购物车商品添加 */
 			cartAdd(goods) {
+				console.log('CartAdd');
 				let self = this;
 				if (self.addclock) {
 					return;
@@ -645,6 +719,48 @@
 					'order.cart/sub', {
 						product_id: product_id,
 						total_num: total_num,
+						cart_id: goods.cart_id,
+						type: 'up',
+						cart_type: 0,
+						dinner_type: self.dinner_type,
+						shop_supplier_id: self.shop_supplier_id,
+						delivery: self.orderType == 'takeout' ? 10 : 20
+					},
+					function(res) {
+						self.addclock = false;
+						self.reCart(res);
+						self.goods_list.forEach((item, index) => {
+							item.products.forEach((product, product_index) => {
+								if (product.product_id == goods.product_id) {
+									self.$set(product, 'cart_num', product.cart_num + 1);
+								}
+							});
+						});
+						self.$set(goods, 'product_num', num);
+						self.$set(goods, 'total_num', goods.total_num + 1);
+						self.addclock = false;
+						self.getCategory();
+					},
+					function() {
+						self.addclock = false;
+					}
+				);
+			},
+			/* 购物车商品添加 */
+			cartAddByManual(goods) {
+				console.log('cartAddByManual');
+				let self = this;
+				if (self.addclock) {
+					return;
+				}
+				self.addclock = true;
+				let num = goods.product_num;
+				let product_id = goods.product_id;
+				let total_num = 1;
+				self._post(
+					'order.cart/sub', {
+						product_id: product_id,
+						total_num: num,
 						cart_id: goods.cart_id,
 						type: 'up',
 						cart_type: 0,

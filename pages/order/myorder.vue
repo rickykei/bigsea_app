@@ -81,15 +81,20 @@
 							<block v-if="item.order_status.value == 10">
 								<button @click.stop="downloadPdf(item.order_id)">PDF</button>
 								<!-- 未支付取消订单 -->
-								<button class="default" @click.stop="cancelOrder(item.order_id)" type="default"
-									v-if="item.pay_status.value == 10&&item.order_source != 30">取消訂單</button>
+								<button class="theme-borderbtn fb" @click.stop="cancelOrder(item.order_id)" type="default"
+									v-if="item.pay_status.value == 10&&item.order_source != 30">取消</button>
 								<!-- 订单付款 -->
 								<block v-if="item.pay_status.value == 10"><button class="theme-borderbtn fb"
-										@click.stop="onPayOrder(item.order_id)">立即支付</button></block>
+										@click.stop="onPayOrder(item.order_id)">立付</button></block>
 								<!-- 订单付款 -->
 								<block v-if="item.pay_status.value == 10 && item.delivery_type == 40">
 									<button class="theme-borderbtn fb"
 										@click.stop="addOrder(item.order_id, item.supplier.shop_supplier_id)">加菜</button>
+								</block>
+								<!-- 更改 -->
+								<block v-if="item.pay_status.value == 10">
+									<button class="theme-borderbtn fb"
+										@click.stop="editOrder(item.order_id, item.supplier.shop_supplier_id)">改單</button>
 								</block>
 							</block>
 						</view>
@@ -427,6 +432,20 @@
 				  link.href = '/index.php/api/pdf.gen/pdf?oid='+ e +'&app_id='+this.app_id+'&token='+uni.getStorageSync('token');
 			      link.target = '_blank';
 			      link.download = e+'.pdf'; 
+			      // 模拟点击<a>元素
+			      document.body.appendChild(link);
+			      link.click();
+			      document.body.removeChild(link);
+			    },
+			editOrder(e) {
+			      // 创建<a>元素以下载PDF
+			      const link = document.createElement('a');
+				  if(process.env.NODE_ENV==='development')
+			      link.href = 'https://bigsea.rickykei.com/shop/#/takeout/order/detail?order_id='+ e;
+				  else
+				  link.href = 'https://bigsea.rickykei.com/shop/#/takeout/order/detail?order_id='+ e;
+			      link.target = '_blank';
+			       
 			      // 模拟点击<a>元素
 			      document.body.appendChild(link);
 			      link.click();
