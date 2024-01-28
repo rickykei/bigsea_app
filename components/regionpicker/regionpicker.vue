@@ -5,7 +5,7 @@
 			<view class="flex-1">
 				<scroll-view style="height: 450rpx;" scroll-y="true">
 					<template v-for="(item,index) in regions" :key='index'>
-						<view @click="pickregion(item)">
+						<view @click="pickregion(item)" class="hours-active">
 							{{item.shortname}} 
 						</view>
 					</template> 
@@ -86,6 +86,7 @@
 	.hours-active {
 		background: #FFFFFF;
 		color: #000000;
+		 font-size: 4ex;
 	}
 
 	.hours {

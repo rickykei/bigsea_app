@@ -16,7 +16,7 @@
 				<scroll-view style="height: 600rpx;" scroll-y="true">
 					<template v-for="(item,index) in ampm" :key='index'>
 						<view
-							 
+							class="hours-active"
 							@click="picktime(pickdates+' '+item.value)">
 							{{item.label}}
 						</view>
@@ -146,11 +146,13 @@
 	.hours-active {
 		background: #FFFFFF;
 		color: #000000;
+		font-size: 3ex;
 	}
 
 	.hours {
 		background-color: #f4f4f4;
 		color: #666666;
+		font-size: 3ex;
 	}
 
 	.mpservice-wrap .mp-image {

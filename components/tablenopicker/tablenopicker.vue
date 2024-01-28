@@ -5,7 +5,7 @@
 			<view class="flex-1">
 				<scroll-view style="height: 300rpx;" scroll-y="true">
 					<template v-for="(item,index) in tablenos" :key='index'>
-						<view @click="picktableno(item)">
+						<view @click="picktableno(item)" class="hours-active">
 							{{item.label}} 
 						</view>
 					</template> 
@@ -81,6 +81,7 @@
 	.hours-active {
 		background: #FFFFFF;
 		color: #000000;
+		 font-size: 4ex;
 	}
 
 	.hours {

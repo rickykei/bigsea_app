@@ -94,7 +94,9 @@
 															</view>
 														</button> 
 														  
-															<input class="flex-1 f36 border-red box-s-b tc" type="number"
+															<input class="flex-1 f36 border-red box-s-b tc" 
+															  width="1"
+															type="number"
 															 v-model="good.cart_num" 
 															@blur="addCartByManual(good)"/> 
 													 
@@ -190,7 +192,7 @@
 											@tap="cartReduce(item)">
 											<view class="iconfont icon icon-jian iconsami-select"></view>
 										</button>
-										<view class="number"><input class="flex-1 f36" type="text" v-model="item.product_num" />  </view>
+										<view class="number">{{item.product_num}}</view>
 										<button class="btn theme-btn" size="min" hover-class="none"
 											@tap="cartAdd(item)">
 											<view class="iconfont icon icon-jia iconadd-select"></view>
