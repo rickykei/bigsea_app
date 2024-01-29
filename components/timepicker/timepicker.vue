@@ -85,18 +85,17 @@
 			getData() {
 				let self = this;
 				let myDate = new Date();
-			     
 				let day = myDate.getDate().toString().padStart(2, "0");
-				const month = (myDate.getMonth() + 1)
-				              .toString()
-				              .padStart(2, "0");
-				const year = myDate.getFullYear().toString();
+				let month = (myDate.getMonth() + 1).toString().padStart(2, "0");
+				let year = myDate.getFullYear().toString();
+				
 				self.dates.forEach((item, index) => {
-					day = (myDate.getDate() + index).toString().padStart(2, "0");
-					
+				 	
+				 	 day = myDate.getDate().toString().padStart(2, "0");
+					 month = (myDate.getMonth()+1).toString().padStart(2, "0");
+				 	 year = myDate.getFullYear().toString();
 					 self.dates[index]=year+'-'+month+'-'+day; 
-					 if (index==0)
-					 		self.pickH(self.dates[index]);
+					 myDate.setDate(myDate.getDate()+1);
  
 				})
 			 
