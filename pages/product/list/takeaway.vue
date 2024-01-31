@@ -362,6 +362,7 @@
 						table_id: 0
 					},
 					function(res) {
+						/* remove default address check for admin 20240131 ricky
 						if (self.getUserId() && res.data.address_id == 0 && self.orderType == 'takeout') {
 							self.showError('未選擇收貨地址，請設置收貨地址', function() {
 								self.gotoPage('/pages/user/address/storeaddress?shop_supplier_id=' + self
@@ -369,6 +370,7 @@
 								return;
 							});
 						}
+						*/
 						self.reduceList = res.data.reduceList;
 						self.min_money = (res.data.supplier.min_money * 1).toFixed(2);
 						self.goods_list = res.data.list;
@@ -989,6 +991,7 @@
 			},
 			toPay() {
 				let self = this;
+				/* remove default address checking ricky 20240131
 				if (self.address_id == 0 && self.orderType == 'takeout') {
 					uni.showModal({
 						title: '提示',
@@ -1000,6 +1003,7 @@
 					});
 					return;
 				}
+				*/
 				uni.showLoading({
 					title: '加載中'
 				});
