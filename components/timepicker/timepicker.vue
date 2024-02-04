@@ -98,7 +98,7 @@
 					 myDate.setDate(myDate.getDate()+1);
  
 				})
-			 
+			 this.pickH(self.dates[0]);
 			},
 			pickH(n) {
 				this.pickdates = n;
