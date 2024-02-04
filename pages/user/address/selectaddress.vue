@@ -112,6 +112,7 @@
 					// #ifdef H5
 					history.go(-1);
 					// #endif
+					 
 					self.$fire.fire('takeout', true)
 				}); 
 				 
