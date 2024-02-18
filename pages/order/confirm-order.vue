@@ -230,7 +230,7 @@
 			regionpicker,
 			tablenopicker,
 		},
-		data() {
+		data() { 
 			return {
 				/*是否加载完成*/
 				loading: true,
@@ -278,12 +278,11 @@
 				isDistrict:false,
 				isTableNo:false,
 				selectedDistrict: 0,
-				selectedShopSupplierId: 0,
-				
+				selectedShopSupplierId: 0, 
 				mealtime: '',
 				myregion: {label:'',id:0},
 				mydistrict: {label:'',id:0},
-				mytableno: {label:'',id:0},
+				mytableno: {label:'YR897',id:'YR897'},
 				cust_id:'',
 				cust_name: '',
 				wmtime: '',
@@ -299,13 +298,18 @@
 			};
 		},
 		onLoad(options) {
+			
 			let self = this;
 			self.options = options;
 			self.cart_type = options.cart_type;
 			self.table_id = options.table_id || 0;
 			self.dinner_type = options.dinner_type;
 			self.delivery = options.delivery;
+			
 			this.getData();
+			let myDate = new Date();
+			self.mealtime=myDate.getFullYear().toString()+'-'+(myDate.getMonth()+1).toString().padStart(2, "0")+'-'+myDate.getDate().toString().padStart(2, "0")+' 09:00'; 
+			self.wmtime=myDate.getFullYear().toString()+'-'+(myDate.getMonth()+1).toString().padStart(2, "0")+'-'+myDate.getDate().toString().padStart(2, "0")+' 09:00'; 
 		},
 		onShow() {
 			this.$fire.on('takeout', function(e) {
@@ -421,7 +425,7 @@
 					}
 				 
 					//self.wmtime = self.getTime('wm');
-					self.mealtime = self.getTime('my');
+					//self.mealtime = self.getTime('my');
 					self.estitime = self.getTime('wm');
 					self.deliverySetting = self.OrderData.deliverySetting;
 					self.loading = false;
@@ -522,6 +526,16 @@
 					}
 				}
 
+				//check value
+				if (this.wmtime==''){
+					this.showError('未選送貨時間!');
+					return
+				}
+				if (this.mytableno.id==''){
+					this.showError('未選車!');
+					return
+				}
+				
 				let params = {
 					delivery: self.delivery,
 					store_id: 1,

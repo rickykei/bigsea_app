@@ -1,7 +1,6 @@
 <template>
 	<Popup :show="isTableNo" :width="width" :height='height' :padding="0" @hidePopup="hidePopupFunc" type='bottom'>
-		<view class="d-b-c time_picker">
-		 
+		<view class="d-b-c time_picker"> 
 			<view class="flex-1">
 				<scroll-view style="height: 300rpx;" scroll-y="true">
 					<template v-for="(item,index) in tablenos" :key='index'>
@@ -30,7 +29,7 @@
 				/*数据对象*/
 				dataModel: {},
 				tablenos: [{label:'YR897',id:'YR897'},{label:'YG5976',id:'YG5976'},{label:'自提',id:'selfpick'}],
-				mytableno: {}   
+				mytableno: 'YR897'  
 			 
 			}
 		},

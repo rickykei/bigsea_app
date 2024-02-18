@@ -69,7 +69,7 @@
 				mealtime: ''
 			}
 		},
-		props: ['isTimer'],
+		props: ['isTimer','mealtime'],
 		onShow() {
 
 		},
