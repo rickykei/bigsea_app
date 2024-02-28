@@ -441,9 +441,9 @@
 			      // 创建<a>元素以下载PDF
 			      const link = document.createElement('a');
 				  if(process.env.NODE_ENV==='development')
-			      link.href = 'https://bigsea.rickykei.com/shop/#/takeout/order/detail?order_id='+ e;
+			      link.href = 'https://bigsea.rickykei.com/shop/#/takeout/order/edit?order_id='+ e;
 				  else
-				  link.href = 'https://bigsea.rickykei.com/shop/#/takeout/order/detail?order_id='+ e;
+				  link.href = 'https://bigsea.rickykei.com/shop/#/takeout/order/edit?order_id='+ e;
 			      link.target = '_blank';
 			       
 			      // 模拟点击<a>元素
