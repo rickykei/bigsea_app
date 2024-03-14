@@ -202,7 +202,7 @@ export default {
 				success(res) {
 					self.longitude = res.longitude;
 					self.latitude = res.latitude;
-					self.getData();
+				//	self.getData();
 				},
 				fail(err) {
 					self.longitude = 0;
@@ -212,7 +212,7 @@ export default {
 						duration: 2000,
 						icon: 'none'
 					});
-					self.getData();
+					//self.getData();
 				}
 			});
 		},

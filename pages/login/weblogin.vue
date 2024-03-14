@@ -158,9 +158,11 @@
 						uni.setStorageSync('token', result.data.token);
 						uni.setStorageSync('user_id', result.data.user_id);
 						// 执行回调函数
-						uni.navigateBack({
-							delta: 2
-						});
+						 
+						this.gotoPage('/pages/product/list/takeaway?orderType=takeout')
+						// uni.navigateBack({
+						//	delta: 2
+						//});
 					},
 					false,
 					() => {
