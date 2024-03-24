@@ -1,8 +1,8 @@
 <template>
 	<view :data-theme='theme()' :class="theme() || ''">
 		<view class="tc buy-checkout-top">
-			<view class="f32 mb20">待支付</view>
-			<view class="redA8 f60 fb">￥{{payPrice || ''}}</view>
+			<view class="f32 mb20">支付</view>
+			<view class="redA8 f60 fb">${{payPrice || ''}}</view>
 		</view>
 		<view class="buy-checkout p-0-30">
 			<view v-for="(item,index) in checkedPay" :key='index'>

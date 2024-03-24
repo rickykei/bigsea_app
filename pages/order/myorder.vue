@@ -306,7 +306,7 @@
 			/*支付方式选择*/
 			onPayOrder(orderId) {
 				let self = this;
-				let pages = '/pages/order/cashier?order_type=10&order_id=' + orderId;
+				let pages = '/pages/order/cashier?order_type=0&order_id=' + orderId;
 				self.gotoPage(pages, 'reLaunch');
 			},
 
