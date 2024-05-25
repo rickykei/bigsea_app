@@ -47,6 +47,9 @@
 								</view>
 							</view>
 						</template>
+						<br/>
+						<br/>
+						<br/>
 					</view>
 				</scroll-view>
 				<!-- goods list begin -->
@@ -94,11 +97,15 @@
 															</view>
 														</button> 
 														  
-															<input class="flex-1 f36 border-red box-s-b tc" 
-															  width="1"
-															type="number"
-															 v-model="good.cart_num" 
-															@blur="addCartByManual(good)"/> 
+															<input  
+															  class="flex-1 f36 border-red box-s-b tc" 
+															  width="1" 
+													 		type="number" 
+															v-model="good.cart_num" 
+															@blur="addCartByManual(good)"  
+															@focus="select"
+															ref="input"
+															/> 
 													 
 														<button type="primary" class="btn add_btn" size="min"
 															hover-class="none" @tap.stop="addCart(good)">
@@ -213,6 +220,7 @@
 </template>
 
 <script>
+	 
 	import utils from '@/common/utils.js';
 	import modal from '@/components/modal/modal';
 	import popupLayer from '@/components/popup-layer/popup-layer';
@@ -313,6 +321,9 @@
 			}
 		},
 		methods: {
+			select() {
+			        this.$refs.input.select();
+			},
 			scrollInit() {
 				let self = this;
 				if(self.scrollviewHigh){
@@ -594,7 +605,7 @@
 					}
 				);
 			},
-			addCartByManual(goods) {
+			addCartByManual(goods,e) {
 				console.log('addCartByManual');
 				let self = this;
 				if (self.addclock) {
@@ -653,6 +664,8 @@
 						self.addclock = false;
 					}
 				);
+				
+				 
 			},
 			reduceFunc(goods) {
 				let self = this;

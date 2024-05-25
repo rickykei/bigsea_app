@@ -1,16 +1,18 @@
 <template>
 	<Popup :show="isRegion" :width="width" :height='height' :padding="0" @hidePopup="hidePopupFunc" type='bottom'>
-		<view class="d-b-c time_picker">
-		 
-			<view class="flex-1">
-				<scroll-view style="height: 450rpx;" scroll-y="true">
-					<template v-for="(item,index) in regions" :key='index'>
+		<view class="d-b-c time_picker"> 
+			<view class="flex">
+				<scroll-view style="height: 400rpx;" scroll-y="true">
+				<ul>
+					<li v-for="(item,index) in regions" :key='index'>
 						<view @click="pickregion(item)" class="hours-active">
 							{{item.shortname}} 
 						</view>
-					</template> 
+					</li> 
+				</ul>
 				</scroll-view>
 			</view>
+			 
 		</view>
 
 	</Popup>
@@ -81,17 +83,19 @@
 		}
 	}
 </script>
-
+ 
 <style scoped lang="scss">
 	.hours-active {
 		background: #FFFFFF;
 		color: #000000;
 		 font-size: 4ex;
+		 width: 180;
 	}
 
 	.hours {
 		background-color: #f4f4f4;
 		color: #666666;
+		 width: 100%;
 	}
 
 	.mpservice-wrap .mp-image {
@@ -114,5 +118,22 @@
 		bottom: 0;
 		width: 100%;
 		background: #ffffff;
+	}
+	
+	ul{
+		list-style: none;
+		width:450px;
+		margin: auto;
+		padding: 0;
+		display: flex;
+		flex-wrap: wrap;
+		
+	}
+	
+	li{
+		text-align: center;
+		width: 150px;
+		height: 60px;
+		outline: 1px;
 	}
 </style>
