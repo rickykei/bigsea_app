@@ -5,7 +5,7 @@ function requestFun(app) {
      * @returns
      */
     app.config.globalProperties._get = function (path, data, success, fail, complete) {
-        console.log(this.websiteUrl, "call api")
+        //console.log(this.websiteUrl, "call api")
         data = data || {};
         data.token = uni.getStorageSync('token') || '';
         data.app_id = this.getAppId();

@@ -63,7 +63,7 @@
 									:id="`cate-${item.category_id}`">
 									<view class="title">
 										<text>{{ item.name }}</text>
-									</view>
+									</view> 
 									<view class="items">
 										<!-- 商品 begin -->
 										<view class="good" 
@@ -101,10 +101,11 @@
 															  class="flex-1 f36 border-red box-s-b tc" 
 															  width="1" 
 													 		type="number" 
-															v-model="good.cart_num" 
+															v-model="good.cart_num"  
+															:ref="`aaRef${good.product_id}`" 
+															
 															@blur="addCartByManual(good)"  
-															@focus="select"
-															ref="input"
+															@focus="cleanVal(good)"
 															/> 
 													 
 														<button type="primary" class="btn add_btn" size="min"
@@ -229,6 +230,7 @@
 			modal,
 			popupLayer
 		},
+		 
 		data() {
 			return {
 				isLoading: true,
@@ -321,9 +323,12 @@
 			}
 		},
 		methods: {
-			select() {
-			        this.$refs.input.select();
+			cleanVal: function(good) {
+				console.log('clearval');
+				if (good.cart_num==0)
+					good.cart_num='';
 			},
+			 
 			scrollInit() {
 				let self = this;
 				if(self.scrollviewHigh){
@@ -358,6 +363,7 @@
 			 get cat list on db 
 			 */
 			getCategory() {
+				console.log('getCatgeory');
 				let self = this;
 				this.sizeCalcState = false;
 				let delivery = self.orderType == 'takeout' ? 10 : 20;
@@ -606,6 +612,7 @@
 				);
 			},
 			addCartByManual(goods,e) {
+				if(goods.cart_num!=''){
 				console.log('addCartByManual');
 				let self = this;
 				if (self.addclock) {
@@ -665,7 +672,7 @@
 					}
 				);
 				
-				 
+			  }
 			},
 			reduceFunc(goods) {
 				let self = this;
@@ -703,6 +710,7 @@
 				);
 			},
 			getCart() {
+				console.log('getCart');
 				let id = uni.getStorageSync('user_id');
 				if (!id) {
 					return;
@@ -716,8 +724,8 @@
 					},
 					function(res) {
 						self.isLoading = true;
-						self.reCart(res);
-						self.cart_list = res.data.productList;
+					 	self.reCart(res);
+					    self.cart_list = res.data.productList; 
 					}
 				);
 			},
