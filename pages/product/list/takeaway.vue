@@ -47,9 +47,7 @@
 								</view>
 							</view>
 						</template>
-						<br/>
-						<br/>
-						<br/>
+						 
 					</view>
 				</scroll-view>
 				<!-- goods list begin -->
@@ -868,12 +866,12 @@
 				this.init();
 			},
 			handleMenuTap(id) {
-				//点击菜单项事件
+				//点击菜单项事件 
 				if (!this.sizeCalcState) {
 					this.calcSize();
 				}
 				this.currentCateId = id;
-				this.$nextTick(() => (this.cateScrollTop = this.goods_list.find(item => item.category_id == id).top));
+			 	this.$nextTick(() => (this.cateScrollTop = this.goods_list.find(item => item.category_id == id).top)); 
 			},
 			handleGoodsScroll({
 				detail
