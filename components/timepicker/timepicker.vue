@@ -2,14 +2,11 @@
 	<Popup :show="isTimer" :width="width" :height='height' :padding="0" @hidePopup="hidePopupFunc" type='bottom'>
 		<view class="d-b-c time_picker">
 			<view class="" style="width: 40%;">
-				<scroll-view style="height: 600rpx;" scroll-y="true">
-					<template v-for="(item,index) in dates" :key='index'>
-						<view  
+				<scroll-view style="height: 600rpx;" scroll-y="true" scroll-into-view="tab2" scroll-with-animation>
+				 <view :id="'tab'+index" v-for="(item,index) in dates" :key="index"
 							:class="pickdates&&item!=pickdates?'hours':'hours-active'" @click="pickH(item)">
 							{{item }}
-						</view>
-					</template>
-
+						</view> 
 				</scroll-view>
 			</view>
 			<view class="flex-1">
@@ -41,12 +38,13 @@
 				/*宽度*/
 				width: 750,
 				height: 600,
+				tabId:1,
 				/*数据对象*/
 				dataModel: {},
 				minute: [
 					'10', '25', '40', '55',
 				],
-				dates:[  '2023-12-06','2023-12-08','2023-12-08','2023-12-08','2023-12-08','2023-12-08','2023-12-08','2023-12-08','2023-12-08','2023-12-08'],
+				dates:[  '2023-12-06','2023-12-08','2023-12-08','2023-12-08','2023-12-08','2023-12-08','2023-12-08','2023-12-06','2023-12-08','2023-12-08','2023-12-08','2023-12-08','2023-12-08','2023-12-08','2023-12-08','2023-12-08','2023-12-08'],
 				hours: [ 
 					{
 						start: '09',
@@ -88,7 +86,7 @@
 				let day = myDate.getDate().toString().padStart(2, "0");
 				let month = (myDate.getMonth() + 1).toString().padStart(2, "0");
 				let year = myDate.getFullYear().toString();
-				
+				myDate.setDate(myDate.getDate()-7);
 				self.dates.forEach((item, index) => {
 				 	
 				 	 day = myDate.getDate().toString().padStart(2, "0");
@@ -98,7 +96,7 @@
 					 myDate.setDate(myDate.getDate()+1);
  
 				})
-			 this.pickH(self.dates[0]);
+			 this.pickH(self.dates[7]);
 			},
 			pickH(n) {
 				this.pickdates = n;
